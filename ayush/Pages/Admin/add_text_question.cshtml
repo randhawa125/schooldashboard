@@ -1,0 +1,166 @@
+﻿@page
+@model ayush.add_questionModel
+@{
+	ViewData["Title"] = "add_question";
+	Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-header">
+					<h1>Add New Text Question</h1>
+				</div>
+				<div class="card-body">
+					<form role="form" id="operationForm" method="post">
+						<input type="hidden" id="QuizID" name="QuizID" value="@Model.QuestionViewModel.QuizId" />
+
+						<div class="form-group">
+							<label for="Title">Question Title</label>
+							@*<input class="form-control" type="text" id="Title" name="Title" value="@Model.QuestionViewModel.Title" placeholder="Enter question title">*@
+							<textarea class="textarea" placeholder="Place some text here" name="Title" id="Title"
+									  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+							@Model.QuestionViewModel.Title</textarea>
+
+							@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Title"] != null && ViewData.ModelState["Title"].Errors.Count > 0)
+							{
+
+								@Html.ValidationMessageFor(m => m.QuestionViewModel.Title, ViewData.ModelState["Title"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+							}
+						</div>
+
+						@*<div>
+								<label><span name="optionNoText">Correct Options</span></label>
+							</div>
+
+							@if (Model.QuestionViewModel.CorrectOptions != null && Model.QuestionViewModel.CorrectOptions.Count > 0)
+							{
+								foreach (var correctOption in Model.QuestionViewModel.CorrectOptions)
+								{
+									<div class="option form-group">
+										<input class="form-control" type="text" name="correctOption@(Model.QuestionViewModel.CorrectOptions.IndexOf(correctOption) + 1)" placeholder="Enter Correct Option" value="@correctOption.Answer">
+									</div>
+								}
+							}
+							else
+							{
+								<div class="option form-group">
+									<input class="form-control" type="text" name="correctOption1" placeholder="Enter Correct Option" value="">
+								</div>
+							}
+
+							<span id="correctOptions"></span>*@
+
+							@if (!ViewData.ModelState.IsValid && ViewData.ModelState["CorrectOptions"] != null && ViewData.ModelState["CorrectOptions"].Errors.Count > 0)
+							{
+								@Html.ValidationMessageFor(m => m.QuestionViewModel.CorrectOptions, ViewData.ModelState["CorrectOptions"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+							}
+
+						<div>
+							<label><span name="optionNoText">Options</span></label>
+						</div>
+
+						@if (Model.QuestionViewModel.Options != null && Model.QuestionViewModel.Options.Count > 0)
+						{
+							foreach (var option in Model.QuestionViewModel.Options)
+							{
+								<div class="option form-group row">
+									<input class="form-control col-6" type="text" name="option@(Model.QuestionViewModel.Options.IndexOf(option) + 2)" placeholder="Enter Other Option" value="@option.Answer">
+									<label class="text-right col-3">Is Option Correct?</label>
+									<input class="form-control col-1" type="checkbox" name="isoptioncorrect@(Model.QuestionViewModel.Options.IndexOf(option) + 2)" value="@option.IsCorrect">
+								</div>
+							}
+						}
+						else
+						{
+							<div class="option form-group row">
+								<input class="form-control col-6" type="text" name="option1" placeholder="Enter Other Option" value="">
+								<label class="text-right col-3">Is Option Correct?</label>
+								<input class="form-control col-1" type="checkbox" name="isoptioncorrect1">
+							</div>
+						}
+
+						<span id="options"></span>
+
+						@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Options"] != null && ViewData.ModelState["Options"].Errors.Count > 0)
+						{
+
+							@Html.ValidationMessageFor(m => m.QuestionViewModel.Options, ViewData.ModelState["Options"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+						}
+
+						<div id="actionsRow">
+							<hr />
+							@*<button type="button" id="addCorrectOptionButton" class="btn btn-info waves-effect waves-light w-md"><i class="fas fa-plus mg-r-10"></i>&nbsp;Add Correct Option</button>*@
+							<button type="button" id="addOptionButton" class="btn btn-info waves-effect waves-light w-md"><i class="fas fa-plus mg-r-10"></i>&nbsp;Add Option</button>
+							<button type="submit" id="addButton" class="btn btn-success waves-effect waves-light w-md"><i class="fas fa-save mg-r-10"></i>&nbsp;Save this Question and Add Another</button>
+							<a href="question?quizId=@Model.QuizId" role="button" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-times mg-r-10"></i>&nbsp;Cancel and Go Back</a>
+						</div>
+					</form>
+
+
+					<div class="correctOptionRowTemplate" style="display:none">
+						<input class="form-control" type="text" name="correctOptionNo" placeholder="Enter Correct Option">
+					</div>
+
+					<div class="optionRowTemplate" style="display:none">
+						<input class="form-control col-6" type="text" name="optionNo" placeholder="Enter Option">
+						<label class="text-right col-3">Is Option Correct?</label>
+						<input class="form-control col-1" type="checkbox" name="isoptioncorrect">
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section JavaScript
+{
+	<script>
+		$(document).ready(function () {
+
+			// Summernote
+			$('.textarea').summernote({
+				height: 300
+			});
+
+			//$("#addCorrectOptionButton").click(function () {
+			//	AddCorrectOption();
+			//});
+
+			$("#addOptionButton").click(function () {
+				AddOption();
+			});
+		});
+
+		//function AddCorrectOption() {
+		//	$('<div/>', {
+		//		'class': 'option form-group', html: GetCorrectOptionHtml()
+		//	}).hide().insertBefore('#correctOptions').slideDown('slow');
+		//}
+
+		function AddOption() {
+			$('<div/>', {
+				'class': 'option form-group row', html: GetOptionHtml()
+			}).hide().insertBefore('#options').slideDown('slow');
+		}
+
+		//function GetCorrectOptionHtml() {
+		//	var len = $('.option').length + 1;
+		//	var $html = $('.correctOptionRowTemplate').clone();
+		//	$html.find('[name=correctOptionNo]')[0].name = "correctOptionNo" + len;
+		//	return $html.html();
+		//}
+
+		function GetOptionHtml() {
+			var len = $('.option').length + 1;
+			var $html = $('.optionRowTemplate').clone();
+			$html.find('[name=optionNo]')[0].name = "optionNo" + len;
+			$html.find('[name=isoptioncorrect]')[0].name = "isoptioncorrect" + len;
+			return $html.html();
+		}
+	</script>
+
+}

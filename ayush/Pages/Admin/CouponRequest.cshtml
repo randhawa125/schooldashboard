@@ -1,0 +1,102 @@
+﻿@page
+@model ayush.Pages.Admin.CouponRequestModel
+@{
+    ViewData["Title"] = "Coupon Requests from Counsellor";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Buy Request </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>No. of Coupons</th>
+                            <th>Request Date</th>
+
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td> 12335666 </td>
+
+                            <th>Harpreet Singh</th>
+                            <th>Counsellor</th>
+                            <th>100</th>
+                            <th>15-09-2020</th>
+
+
+                            <td><i class="fa fa-trash text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td> 12335666 </td>
+
+                            <th>Harpreet Singh</th>
+                            <th>School</th>
+                            <th>100</th>
+                            <th>15-09-2020</th>
+
+
+                            <td><i class="fa fa-trash text-danger"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1.</td>
+                            <td> 12335666 </td>
+
+                            <th>Harpreet Singh</th>
+                            <th>Counsellor</th>
+                            <th>100</th>
+                            <th>15-09-2020</th>
+
+
+                            <td><i class="fa fa-trash text-danger"></i></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+       
+        </div>
+      
+
+
+    </div>
+</div>
+@section JavaScript
+{
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}

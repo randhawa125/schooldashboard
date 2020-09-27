@@ -1,0 +1,440 @@
+﻿@page
+@model ayush.EQmodel
+@{
+    ViewData["Title"] = "EQ";
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+    <script src="~/js/Chart.min.js"></script>
+
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="text-uppercase">EQ</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li>
+                        <a class="btn btn-app border border-info" asp-page="EQTable">
+                            <i class="fas fa-database"></i>Table
+                        </a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My School</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6" style="min-height:250px;">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-uppercase ml-4">Implication</h5>
+                                <ul>
+                                    <li><b>Intrinsic: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Extrinsic: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Overall: </b>workshop description will be written here.. only few line of description..</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Class</h3>
+                    </div>
+                    <div class="row p-3">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Intrinsic</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Intrinsic"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Extrinsic</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Extrinsic"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Overall</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Overall"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section JavaScript {
+
+    @*top chart*@
+   
+    <script>
+        var graph_six = document.getElementById("myChart").getContext("2d");
+
+        var graph_six_Data = {
+            labels: [
+
+
+                "Intrinsic",
+                "Extrinsic",
+                "Overall",
+               
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [5, 3, 7],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_six, {
+            type: 'horizontalBar',
+            data: graph_six_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+   
+<script>
+   
+
+    Chart.pluginService.register({
+        afterDraw: function (chart) {
+            if (typeof chart.config.options.lineAt != 'undefined') {
+                var lineAt = chart.config.options.lineAt;
+                var ctxPlugin = chart.chart.ctx;
+                var xAxe = chart.scales[chart.config.options.scales.xAxes[0].id];
+                var yAxe = chart.scales[chart.config.options.scales.yAxes[0].id];
+
+                // I'm not good at maths
+                // So I couldn't find a way to make it work ...
+                // ... without having the `min` property set to 0
+                if (yAxe.min != 0) return;
+
+                ctxPlugin.setLineDash([5, 10]);
+
+                ctxPlugin.strokeStyle = "silver";
+                ctxPlugin.beginPath();
+                lineAt = (lineAt - yAxe.min) * (100 / yAxe.max);
+                lineAt = (100 - lineAt) / 100 * (yAxe.height) + yAxe.top;
+                ctxPlugin.moveTo(xAxe.left, lineAt);
+                ctxPlugin.lineTo(xAxe.right, lineAt);
+                ctxPlugin.stroke();
+            }
+        }
+    });
+
+
+    @* Graph One *@
+    var ctx = document.getElementById("Graph_Intrinsic");
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["8th","9th","10th","11th","12th"],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [1, 2, 3, 4, 8],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+
+            lineAt: 8,
+            scales: {
+
+                xAxes: [{
+
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        }
+    });
+
+
+    @* Graph Two *@
+    var ctx2 = document.getElementById("Graph_Extrinsic");
+    var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ["8th", "9th", "10th", "11th", "12th"],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [1, 2, 3, 4, 8],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+
+            lineAt: 5,
+            scales: {
+
+                xAxes: [{
+
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        }
+    });
+    @* Graph Three *@
+    var ctx3 = document.getElementById("Graph_Overall");
+    var myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: ["8th", "9th", "10th", "11th", "12th"],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [1, 2, 3, 4, 8],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+
+            lineAt: 6,
+            scales: {
+
+                xAxes: [{
+
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    gridLines: {
+                        display: false
+                    }
+
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 10,
+                        diplay: false
+                    },
+                    stacked: true,
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+
+   
+    @*<script>
+        var graph_two = document.getElementById("Graph_Extrinsic").getContext("2d");
+
+        var graph_two_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [1, 3, 7, 3, 1],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_two, {
+            type: 'bar',
+            data: graph_two_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>*@
+
+   
+
+
+}

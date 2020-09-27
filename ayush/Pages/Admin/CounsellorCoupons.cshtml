@@ -1,0 +1,295 @@
+﻿@page
+@model ayush.Pages.Admin.CounsellorCouponsModel
+@{
+    ViewData["Title"] = "Counsellor Coupons";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+<br />
+
+<div class="card">
+    <div class="card-header p-2">
+        <ul class="nav nav-pills">
+
+            <li class="nav-item"><a class="nav-link active" href="#view" data-toggle="tab">Coupons Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="#used" data-toggle="tab">Used Coupons</a></li>
+            <li class="nav-item"><a class="nav-link" href="#unused" data-toggle="tab">Unused Coupons</a></li>
+            <li class="nav-item"><a class="nav-link" href="#add" data-toggle="tab">Issue Coupons</a></li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab-content">
+
+
+            <div class="active tab-pane" id="view">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="input-group">
+                                    <h3>Coupons Register</h3>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Number of Coupons</th>
+                                            <th>Issue Date</th>
+
+                                            <th>Delete Coupons</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                100
+                                            </td>
+                                            <td>15-09-2020</td>
+
+                                            <td><i class="fa fa-trash text-danger"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2.</td>
+                                            <td>
+                                                100
+                                            </td>
+                                            <td>15-09-2020</td>
+
+                                            <td><i class="fa fa-trash text-danger"></i></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3.</td>
+                                            <td>
+                                                100
+                                            </td>
+                                            <td>15-09-2020</td>
+
+                                            <td><i class="fa fa-trash text-danger"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="used">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="input-group">
+                                    <h3>Coupons Register</h3>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Coupon Number</th>
+                                            <th>Issue Date</th>
+
+                                         
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="unused">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="input-group">
+                                    <h3>Coupons Register</h3>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No.</th>
+                                            <th>Coupon Number</th>
+                                            <th>Issue Date</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>
+                                                AB-10000424242
+                                            </td>
+                                            <td>15-09-2020</td>
+
+
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="add">
+                <div class="col-md-6">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Add Coupons</h3>
+                        </div>
+
+                        <form role="form">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Counsellor ID</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Counsellor ID" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Enter Number of Coupons</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Number of Coupons">
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Issue Coupons</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+        </div>
+</div>
+@*lower*@
+
+
+
+@section JavaScript
+{
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}

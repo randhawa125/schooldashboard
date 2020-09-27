@@ -1,0 +1,445 @@
+﻿@page
+@model ayush.actionplanModel
+@{
+    ViewData["Title"] = "sessions";
+    Layout = "~/Pages/Shared/_CounsellorLayout.cshtml";
+    <link href="http://hayageek.github.io/jQuery-Upload-File/4.0.11/uploadfile.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://hayageek.github.io/jQuery-Upload-File/4.0.11/jquery.uploadfile.min.js"></script>
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Action Plan</h1>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#session1" data-toggle="tab">Session 1</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#session2" data-toggle="tab">Session 2</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#session3" data-toggle="tab">Session 3</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#session4" data-toggle="tab">General Activities</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="session1">
+                                <div class="callout callout-info">
+                                    <h5>I am a danger callout!</h5>
+
+                                    <p>
+                                        There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                    <div class="bg-white">
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> App Description.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+
+
+                                    <div class="bg-white">
+                                        <p>Response(s) from Student</p>
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response1.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response22.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <a href=""><small>Edit</small></a> | <a href=""><small>Delete</small></a>
+                                </div>
+
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label>Enter Title of Action Plan</label>
+                                        <input type="text" class="form-control" placeholder="Enter Title of Action Plan">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Enter Description</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="multipleupload">Upload</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="submit" value="Add Action Plan" class="btn btn-info">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="session2">
+                                <div class="callout callout-info">
+                                    <h5>I am a danger callout!</h5>
+
+                                    <p>
+                                        There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                    <div class="bg-white">
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> App Description.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+
+
+                                    <div class="bg-white">
+                                        <p>Response(s) from Student</p>
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response1.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response22.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <a href=""><small>Edit</small></a> | <a href=""><small>Delete</small></a>
+                                </div>
+
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label>Enter Title of Action Plan</label>
+                                        <input type="text" class="form-control" placeholder="Enter Title of Action Plan">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Enter Description</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="multipleupload">Upload</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="submit" value="Add Action Plan" class="btn btn-info">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="session3">
+
+                                <div class="callout callout-info">
+                                    <h5>I am a danger callout!</h5>
+
+                                    <p>
+                                        There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                    <div class="bg-white">
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> App Description.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+
+
+                                    <div class="bg-white">
+                                        <p>Response(s) from Student</p>
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response1.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response22.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <a href=""><small>Edit</small></a> | <a href=""><small>Delete</small></a>
+                                </div>
+
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label>Enter Title of Action Plan</label>
+                                        <input type="text" class="form-control" placeholder="Enter Title of Action Plan">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Enter Description</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="multipleupload">Upload</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="submit" value="Add Action Plan" class="btn btn-info">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="session4">
+                                <div class="callout callout-info">
+                                    <h5>I am a danger callout!</h5>
+
+                                    <p>
+                                        There is a problem that we need to fix. A wonderful serenity has taken possession of my entire
+                                        soul,
+                                        like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </p>
+                                    <div class="bg-white">
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> Sep2014-report.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> App Description.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+
+
+                                    <div class="bg-white">
+                                        <p>Response(s) from Student</p>
+                                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response1.pdf</a>
+
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="mailbox-attachment-info">
+                                                    <a href="#" class="text-decoration-none"><i class="fas fa-paperclip"></i> response22.docx</a>
+
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <a href=""><small>Edit</small></a> | <a href=""><small>Delete</small></a>
+                                </div>
+
+                                <div class="callout callout-info">
+                                    <div class="form-group">
+                                        <label>Enter Title of Action Plan</label>
+                                        <input type="text" class="form-control" placeholder="Enter Title of Action Plan">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Enter Description</label>
+                                        <textarea class="form-control" rows="3" placeholder="Enter Description..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div id="multipleupload">Upload</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <input type="submit" value="Add Action Plan" class="btn btn-info">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+
+                <div class="card card-prirary cardutline direct-chat direct-chat-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Direct Chat</h3>
+
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="direct-chat-messages">
+
+                            <div class="direct-chat-msg">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                    <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                </div>
+
+                                <img class="direct-chat-img" src="~/images/user1-128x128.jpg" alt="Message User Image">
+
+                                <div class="direct-chat-text">
+                                    Is this template really for free? That's unbelievable!
+                                </div>
+
+                            </div>
+
+                            <div class="direct-chat-msg right">
+                                <div class="direct-chat-infos clearfix">
+                                    <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                    <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                </div>
+
+                                <img class="direct-chat-img" src="~/images/user3-128x128.jpg" alt="Message User Image">
+
+                                <div class="direct-chat-text">
+                                    You better believe it!
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-footer">
+                        <form action="#" method="post">
+                            <div class="input-group">
+                                <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+@section JavaScript {
+    <script>
+        $(document).ready(function () {
+            $("#multipleupload").uploadFile({
+                url: "upload.php",
+                multiple: true,
+                dragDrop: true,
+                fileName: "myfile"
+            }); 
+        });
+    </script>
+
+}
+

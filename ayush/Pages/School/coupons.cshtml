@@ -1,0 +1,253 @@
+﻿@page
+@model ayush.couponsModel
+@{
+    ViewData["Title"] = "Coupons";
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Coupons History</h1>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-12">
+                <form method="post" class="needs-validation">
+
+
+
+
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#history" data-toggle="tab">Buy History</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#unused" data-toggle="tab">Unused Coupons</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#used" data-toggle="tab">Used Coupons</a></li>
+
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="history">
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    <table id="example1" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    S. No.
+                                                                </th>
+                                                                <th>
+                                                                   Total No. of Coupons
+                                                                </th>
+                                                                <th>
+                                                                    Issue Date
+                                                                </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    20
+                                                                </td>
+                                                                <td>
+                                                                    10-09-2020
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="unused">
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    <table id="example2" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    S. No.
+                                                                </th>
+                                                                <th>
+                                                                    Coupon Number
+                                                                </th>
+                                                                <th>
+                                                                    Issue Date
+                                                                </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    SCH-1478898222
+                                                                </td>
+                                                                <td>
+                                                                    10-09-2020
+                                                                </td>
+
+                                                            </tr>
+
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="used">
+
+                                    <div class="row">
+                                        <div class="col-12">
+
+                                            <div class="card">
+
+                                                <div class="card-body">
+                                                    <table id="example3" class="table table-bordered table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    S. No.
+                                                                </th>
+                                                                <th>
+                                                                    Coupon Number
+                                                                </th>
+                                                                <th>
+                                                                    Used For
+                                                                </th>
+                                                                <th>
+                                                                    Class
+                                                                </th>
+                                                                <th>
+                                                                    Used Date
+                                                                </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <td>
+                                                                    1
+                                                                </td>
+                                                                <td>
+                                                                    SCH-1478898222
+                                                                </td>
+
+                                                                <td>
+                                                                    Harry
+                                                                </td>
+                                                                <td>
+                                                                    8th
+                                                                </td>
+                                                                <td>
+                                                                    10-09-2020
+                                                                </td>
+                                                            </tr>
+
+
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+@section JavaScript {
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+            $("#example3").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
+}
+

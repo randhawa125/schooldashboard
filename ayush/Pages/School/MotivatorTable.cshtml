@@ -1,0 +1,206 @@
+﻿@page
+@model ayush.MotivatorTablemodel
+@{
+    ViewData["Title"] = "Motivator Table";
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="text-uppercase">Motivatory Table</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Student Name
+                                    </th>
+
+                                    <th>
+                                        Class
+                                    </th>
+                                    <th>
+                                        Money And Profits
+                                    </th>
+                                    <th>
+                                        Security
+                                    </th>
+                                    <th>
+                                        Networking
+                                    </th>
+                                    <th>
+                                        Fun Loving
+                                    </th>
+                                    <th>
+                                        Social Service
+                                    </th>
+                                    <th>
+                                        Recognition
+                                    </th>
+                                    <th>
+                                        Power
+                                    </th>
+                                    <th>
+                                        Respect
+                                    </th>
+                                    <th>
+                                        Knowledge Seeking
+                                    </th>
+                                    <th>
+                                        Creativity and Innovation
+                                    </th>
+                                    <th>
+                                        Goal Setting
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Harpreet Singh
+                                    </td>
+                                    <td>
+                                        8th
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Vijay Manotra
+                                    </td>
+                                    <td>
+                                        9th
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                    <td>
+                                        6.5
+                                    </td>
+                                    <td>
+                                        4.2
+                                    </td>
+                                    <td>
+                                        8
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                            @*<tfoot>
+                                    <tr>
+                                        <th>Rendering engine</th>
+                                        <th>Browser</th>
+                                        <th>Platform(s)</th>
+                                        <th>Engine version</th>
+                                        <th>CSS grade</th>
+                                    </tr>
+                                </tfoot>*@
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+@section JavaScript {
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}

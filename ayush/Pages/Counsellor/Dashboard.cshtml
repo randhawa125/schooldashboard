@@ -1,0 +1,284 @@
+﻿@page
+@model ayush.Pages.Counsellor.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Pages/Shared/_CounsellorLayout.cshtml";
+
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link href="~/lib/bootstrap-datepicker/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
+}
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Number of Coupons Required?</label>
+                    <input type="email" class="form-control" id="exampleInputEmail3">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+
+                <button type="button" class="btn btn-primary">Send Request</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<br />
+<section class="content">
+    <div class="row">
+
+        <!-- ./col -->
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>44</h3>
+
+                    <p>Coupons Used</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-gifts"></i>
+                </div>
+                <a href="coupons" class="small-box-footer">View History <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>04</h3>
+
+                    <p>Coupons Remaining</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-gift"></i>
+                </div>
+                @*<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                        Send Buy Request
+                    </button>*@
+                <a href="#" data-toggle="modal" data-target="#modal-default" class="small-box-footer">Send Buy Request <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>14</h3>
+
+                    <p>Total Reward Points</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-coins"></i>
+                </div>
+                <a href="RewardPoints" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>10</h3>
+
+                    <p>Total Referrals</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-user-plus"></i>
+                </div>
+                <a href="refer" class="small-box-footer">View All <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="card22">
+        <div class="card-body22">
+            <div class="row">
+
+
+                <div class="col-md-8">
+
+                    <div class="row">
+
+                        @foreach (var blog in Model.Blogs)
+                        {
+                            <div class="col-12 col-sm-6">
+
+                                <div class="info-box bg-light">
+                                    <div class="info-box-content">
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm" src="/images/user1-128x128.jpg" alt="user image">
+                                                <span class="username">
+                                                    @blog.SubmittedByUserFullName
+                                                </span>
+                                                <span class="description">@blog.SubmittedDate.ToString("dddd, dd MMMM yyyy - HH:mm")</span>
+
+                                            </div>
+
+                                            <span class="username">
+                                                <a href="blogdetail?id=@blog.Id">@blog.Title</a>
+                                            </span>
+                                            @if (string.IsNullOrEmpty(blog.FeaturedImagePath) == false)
+                                            {
+                                                <img class="img-fluid pad mb-3 mt-2" src="/uploads/@blog.FeaturedImagePath" alt="Photo">
+                                            }
+                                            <div>
+                                                @{ if (blog.Description.Length < 200)
+                                                    {
+
+                                                        <div style="height: 84px; overflow: hidden;">@Html.Raw(blog.Description)...</div>
+                                                        <div class="text-right">
+                                                            <a href="blogdetail?id=@blog.Id"><i class="fas fa-book-reader mr-1"></i> read more</a>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div>@Html.Raw(blog.Description.Substring(0, 200))...</div>
+                                                    }
+                                                }
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="info-box bg-light">
+
+                        <div class="info-box-content">
+
+                            <div class="post">
+                                <div id="datepicker" style="width: 100%"></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-box bg-light">
+
+                        <div class="info-box-content">
+
+                            <div class="post">
+                                <h6>Current Challenge</h6>
+                                <hr />
+
+                                <p>  Text of the challenge will be written here. You can add few lines here.</p>
+
+                                <hr />
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="info-box bg-light">
+
+                        <div class="info-box-content">
+
+                            <div class="post">
+                                <h6>Upcoming Sessions</h6>
+                                <hr />
+
+                                <p>  Harpreet Singh - 02-09-2020 (10:00 - 11:00 AM)</p>
+
+                                <hr />
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+
+                        <div class="info-box bg-light">
+
+                            <div class="info-box-content">
+
+                                <div class="post">
+                                    <h6>Latest Notifications</h6>
+                                    <hr />
+                                    @foreach (var notification in Model.Notifications)
+                                    {
+
+                                        @*<i class="fa fa-bellm pull-left"></i>*@
+
+                                        <p>   <a href="notificationdetail?id=@notification.Id">@notification.Title</a></p>
+
+                                        <hr />
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+
+<script>
+
+    function sendBuyRequest() {
+        $("#buyRequest").modal("show");
+    }
+</script>
+<script>
+    $('#datepicker').datepicker({
+        startDate: truncateDate(new Date())
+    });
+
+    function truncateDate(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+ 
+
+   
+</script>

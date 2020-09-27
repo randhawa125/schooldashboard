@@ -1,0 +1,591 @@
+﻿@page
+@model ayush.personalitymodel
+@{
+    ViewData["Title"] = "Personality";
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+    <script src="~/js/Chart.min.js"></script>
+
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="text-uppercase">Personality</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+
+                    <li>
+                        <a class="btn btn-app border border-info" asp-page="PersonalityTable">
+                            <i class="fas fa-database"></i>Table
+                        </a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My School</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-uppercase ml-4">Implication</h5>
+                                <ul>
+                                    <li><b>Experiential Mindset: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Extrovert: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Emotional: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Dependable: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Entrepreneurial Mindset: </b>workshop description will be written here.. only few line of description..</li>
+                                    <li><b>Opportunistic: </b>workshop description will be written here.. only few line of description..</li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            @*<div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Implication</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <ul>
+                            <li><b>Experiential Mindset: </b>workshop description will be written here.. only few line of description..</li>
+                            <li><b>Extrovert: </b>workshop description will be written here.. only few line of description..</li>
+                            <li><b>Emotional: </b>workshop description will be written here.. only few line of description..</li>
+                            <li><b>Dependable: </b>workshop description will be written here.. only few line of description..</li>
+                            <li><b>Entrepreneurial Mindset: </b>workshop description will be written here.. only few line of description..</li>
+                            <li><b>Opportunistic: </b>workshop description will be written here.. only few line of description..</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>*@
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">My Class</h3>
+                    </div>
+                    <div class="row p-3">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Experiential Mindset</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Experiential_Mindset"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Extrovert</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Extrovert"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Emotional</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Emotional"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Dependable</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Dependable"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Entrepreneurial Mindset</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Entrepreneurial_Mindset"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Opportunistic</h3>
+                                </div>
+                                <div class="card-body" style="height:300px;">
+                                    <canvas id="Graph_Opportunistic"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+@section JavaScript {
+
+    @*pie chart*@
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Experiential Mindset", "Extrovert", "Emotional", "Dependable", "Entrepreneurial Mindset", "Opportunistic"],
+                datasets: [{
+                    backgroundColor: [
+                        "#2ecc71",
+                        "#3498db",
+                        "#95a5a6",
+                        "#9b59b6",
+                        "#f1c40f",
+                        "#e74c3c"
+                    ],
+                    data: [12, 19, 3, 17, 28, 24]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: true
+                }
+            }
+        });
+    </script>
+
+    @*Graph One*@
+    <script>
+        var graph_one = document.getElementById("Graph_Experiential_Mindset").getContext("2d");
+       
+        var graph_one_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [5, 5, 4, 3, 1, 5],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_one, {
+            type: 'bar',
+            data: graph_one_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    @*Graph Two*@
+    <script>
+        var graph_two = document.getElementById("Graph_Extrovert").getContext("2d");
+      
+        var graph_two_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [1, 3, 7, 3, 1, 7],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_two, {
+            type: 'bar',
+            data: graph_two_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    @*Graph Three*@
+    <script>
+        var graph_three = document.getElementById("Graph_Emotional").getContext("2d");
+      
+        var graph_three_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [3, 4, 5, 3, 9, 1],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_three, {
+            type: 'bar',
+            data: graph_three_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    @*Graph Four*@
+    <script>
+        var graph_four = document.getElementById("Graph_Dependable").getContext("2d");
+       
+        var graph_four_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [2, 3, 6, 8, 7, 9],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_four, {
+            type: 'bar',
+            data: graph_four_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    @*Graph Five*@
+    <script>
+        var graph_five = document.getElementById("Graph_Entrepreneurial_Mindset").getContext("2d");
+       
+        var graph_five_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [3, 4, 6, 7, 2, 5],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_five, {
+            type: 'bar',
+            data: graph_five_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+    @*Graph Six*@
+    <script>
+        var graph_six = document.getElementById("Graph_Opportunistic").getContext("2d");
+       
+        var graph_six_Data = {
+            labels: [
+
+
+                "8th",
+                "9th",
+                "10th",
+                "11th",
+                "12th"
+
+
+
+            ],
+            datasets: [
+                {
+                    label: "Result",
+                    data: [5, 3, 7, 6, 8, 9],
+                    backgroundColor: ["#947aa3", "#88a4c2", "#a9bf9b", "#e09fd6", "#e65f1c"],
+                    hoverBackgroundColor: ["#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB", "#66A2EB"]
+                }]
+        };
+
+        var graph_three_Chart = new Chart(graph_six, {
+            type: 'bar',
+            data: graph_six_Data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false 
+                },
+                scales: {
+
+                    xAxes: [{
+
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        gridLines: {
+                            display: false
+                        }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 10,
+                            diplay: false
+                        },
+                        stacked: true,
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+}

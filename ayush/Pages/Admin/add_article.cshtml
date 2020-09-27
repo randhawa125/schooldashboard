@@ -1,0 +1,99 @@
+﻿@page
+@using ayush.Models;
+@using ayush.Data;
+@model ayush.Pages.Admin.add_articleModel
+@{
+	Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+	<link rel="stylesheet" href="~/css/ionicons.min.css">
+	<link rel="stylesheet" href="~/css/summernote-bs4.css">
+	<link rel="stylesheet" href="~/css/all.min.css">
+}
+
+<!-- Main content -->
+<section class="content mt-1">
+	<form method="post" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">
+							@if (Model.BlogVM.Id == 0)
+							{
+								<span>Add New Blog</span>
+							}
+							else
+							{
+								<span>Edit Blog</span>
+							}
+						</h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label>Title</label>
+							<input type="text" asp-for="BlogVM.Title" class="form-control">
+							<span class="text-danger" asp-validation-for="BlogVM.Title"></span>
+						</div>
+
+						<div class="form-group">
+							<label>Audience</label>
+                            <select class="form-control custom-select" asp-for="BlogVM.ClassId">
+                                <option selected>Public</option>
+                                <option>7th</option>
+                                <option>8th</option>
+                                <option>9th</option>
+                                <option>10th</option>
+                                <option>11th</option>
+                                <option>12th</option>
+                            </select>
+						</div>
+						<div class="form-group">
+							<label for="inputClientCompany">Featured Image</label>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="featuredImage" name="featuredImage">
+								<label class="custom-file-label" for="customFile">Choose file</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<textarea class="textarea" asp-for="BlogVM.Description" placeholder="Place some text here"
+									  style="width: 100%; height: 400px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+							@Model.BlogVM.Description</textarea>
+							<span class="text-danger" asp-validation-for="BlogVM.Description"></span>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" asp-for="BlogVM.IsActive" />
+							<label asp-for="BlogVM.IsActive" class="form-check-label">Active</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<a href="~/Admin/Blog" class="btn btn-secondary">Cancel</a>
+				<input type="submit" value="Submit" class="btn btn-success float-right">
+			</div>
+		</div>
+	</form>
+	<br />
+</section>
+@section JavaScript
+{
+	<script src="~/js/demo.js"></script>
+	<script src="~/js/summernote-bs4.min.js"></script>
+	<script>
+		$(function () {
+			// Summernote
+			$('.textarea').summernote({
+				height: 300
+			});
+
+		})
+	</script>
+}

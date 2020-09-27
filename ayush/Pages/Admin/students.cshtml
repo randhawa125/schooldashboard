@@ -1,0 +1,177 @@
+﻿@page
+@model ayush.Pages.Admin.studentsModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Students</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                   
+                    <li>
+                        <a class="btn btn-app" asp-page="add_admin">
+                            <i class="fas fa-file"></i> Export to Excel
+                        </a>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Student
+                                    </th>
+                                    <th>
+                                        Class
+                                    </th>
+                                    <th>
+                                        School
+                                    </th>
+                                    <th>
+                                       Reg. Date
+                                    </th>
+                                    <th>
+                                        Payment
+                                    </th>
+                                    <th>
+                                        View Profile
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.StudentList)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Id)
+                                        </td>
+                                        <td>
+                                            <a>
+                                                @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+                                            </a>
+                                            <br />
+                                            <small>
+                                                Class: @Html.DisplayFor(modelItem => item.ClassName)
+                                            </small>
+                                        </td>
+                                        <td>
+                                           Arvind Ghosh Hr. Sec. School
+                                        </td>
+                                        <td class="project_progress">
+                                           15-09-2020
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">Paid</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="StudentProfile">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                           
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-ban">
+                                                </i>
+                                                Deactivate
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @*  *@}
+
+                            </tbody>
+                          
+                        </table>
+                    </div>
+                   
+                </div>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+
+   
+
+
+    <div class="modal fade" id="plansUpdateModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Plan Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <select>
+                        <option>Plan 1</option>
+                        <option>Plan 2</option>
+                        <option>Plan 3</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+@section JavaScript
+{
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script src="~/js/demo.js"></script>
+
+    <script>
+        function openEditPlanModal() {
+            $("plansUpdateModal").modal("show");
+        }
+
+    </script>
+}

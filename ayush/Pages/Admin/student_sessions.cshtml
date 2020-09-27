@@ -1,0 +1,200 @@
+﻿@page
+@model ayush.student_sessionsModel
+@{
+    ViewData["Title"] = "Student Sessions";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+
+<br />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+
+
+                <div class="card">
+                    <div class="card-header p-2">
+                        <h3 class="card-title">
+                            Student Sessions
+                        </h3>
+                    </div>
+                    <div class="card-body">
+
+
+
+
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Student
+                                    </th>
+                                    <th>
+                                        Counsellor
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Time
+                                    </th>
+                                    <th>
+                                        Actions
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var slot in Model.StudentSlots)
+                                {
+                                    <tr>
+                                        <td>
+                                            @slot.Fullname
+                                        </td>
+                                        <td>
+                                            Counsellor Name
+                                        </td>
+                                        <th>
+                                            @slot.Date.ToShortDateString()
+                                        </th>
+                                        <th>
+                                            @DateTime.Today.Add(slot.StartTime).ToString("hh:mm tt") - @DateTime.Today.Add(slot.EndTime).ToString("hh:mm tt")
+                                        </th>
+                                        <td>
+
+                                            @*<a class="btn btn-info" href="javascript:void(0)" onclick="openAssignModal('@slot.Date', '@slot.StartTime', '@slot.EndTime', '@slot.Id')">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                    Change Counsellor
+                                                </a>*@
+
+                                            <a class="btn btn-info" href="#">
+                                                <i class="fas fa-pencil-alt"></i>
+                                                Change Counsellor
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+@*lower*@
+
+
+<div class="modal fade" id="assignModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Slot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div>
+                    <h6>Available Counsellors</h6>
+                    <div id="counsellorsDiv">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section JavaScript {
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $("#example2").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example3').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+    <script>
+        function openAssignModal(date, start, end, id) {
+            $(".wrapper").block({ message: '' });
+            $.ajax({
+                type: "GET",
+                url: `/api/Slot/GetAvailableCounsellors?date=${date}&starttime=${start}&endtime=${end}`,
+                success: function (response) {
+                    $("#counsellorsDiv").html("");
+                    for (var i = 0; i < response.length; i++) {
+                        var element = `<label>${response[i].name}</label>
+                                                        <button class='btn btn-primary' onclick='select("${response[i].id}", ${id})'>Select</button>`
+                        $("#counsellorsDiv").append(element);
+                    }
+                    $("#assignModal").modal("show");
+                    $(".wrapper").unblock();
+                },
+                failure: function () {
+                    $(".wrapper").unblock();
+                }
+            });
+        }
+
+        function select(counsellorSlotId, studentSlotId) {
+            $(".wrapper").block({ message: '' });
+            $.ajax({
+                type: "POST",
+                url: `/api/Slot/SelectCounsellor?counsellorSlotId=${counsellorSlotId}&studentSlotId=${studentSlotId}`,
+                success: function (response) {
+                    $("#assignModal").modal("hide");
+                    $(".wrapper").unblock();
+                    var alert = Swal.fire({
+                        icon: 'success',
+                        title: 'Session Booked!',
+                        allowOutsideClick: false
+                    }).then((x) => location.reload());
+                },
+                failure: function () {
+                    $(".wrapper").unblock();
+                }
+            });
+        }
+    </script>
+}

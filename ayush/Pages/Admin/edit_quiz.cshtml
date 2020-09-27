@@ -1,0 +1,163 @@
+﻿@page
+@model ayush.edit_quizModel
+@{
+    ViewData["Title"] = "edit_quiz";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/summernote-bs4.css">
+}
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Edit Quiz</h1>
+                </div>
+                <div class="card-body">
+                    <form role="form" id="operationForm" method="post">
+                        <input type="hidden" id="ID" name="ID" value="@Model.QuizId" />
+                        <div class="form-group">
+                            <label for="Title">Quiz Name</label>
+                            <input class="form-control" type="text" id="Name" name="Name" value="@Model.QuizViewModel.Name" placeholder="Enter quiz name">
+                            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Name"] != null && ViewData.ModelState["Name"].Errors.Count > 0)
+                            {
+
+                                @Html.ValidationMessageFor(m => m.QuizViewModel.Name, ViewData.ModelState["Name"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <textarea class="form-control textarea" name="Description" placeholder="Enter some Description about this quiz" rows="4">@Model.QuizViewModel.Description</textarea>
+                            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Description"] != null && ViewData.ModelState["Description"].Errors.Count > 0)
+                            {
+                                @Html.ValidationMessageFor(m => m.QuizViewModel.Description, ViewData.ModelState["Description"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Should this Quiz be taken in a timely manner?</label>
+                            <div class="form-control checkbox form-check-inline">
+                                @{
+                                    var quizTimerChecked = Model.QuizViewModel.EnableQuizTimer ? "checked" : string.Empty;
+                                }
+                                <input type="checkbox" class="mx-2" id="QuizTimerCheckbox" @quizTimerChecked> Yes, Enable Quiz Timer
+                                <input type="hidden" name="EnableQuizTimer" id="EnableQuizTimer" />
+                            </div>
+                            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["EnableQuizTimer"] != null && ViewData.ModelState["EnableQuizTimer"].Errors.Count > 0)
+                            {
+
+                                @Html.ValidationMessageFor(m => m.QuizViewModel.EnableQuizTimer, ViewData.ModelState["EnableQuizTimer"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                            }
+                        </div>
+                        <div id="timerSection">
+                            <div class="form-group">
+                                <label for="Hours">Hours</label>
+                                <input class="form-control" type="text" id="Hours" name="Hours" value="@Model.QuizViewModel.Hours" placeholder="Enter Hours Duration">
+                                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Hours"] != null && ViewData.ModelState["Hours"].Errors.Count > 0)
+                                {
+
+                                    @Html.ValidationMessageFor(m => m.QuizViewModel.Hours, ViewData.ModelState["Hours"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label for="Minutes">Minutes</label>
+                                <input class="form-control" type="text" id="Minutes" name="Minutes" value="@Model.QuizViewModel.Minutes" placeholder="Enter Minutes Duration">
+                                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Minutes"] != null && ViewData.ModelState["Minutes"].Errors.Count > 0)
+                                {
+                                    @Html.ValidationMessageFor(m => m.QuizViewModel.Minutes, ViewData.ModelState["Minutes"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                                }
+                            </div>
+                            <div class="form-group">
+                                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["TimeDuration"] != null && ViewData.ModelState["TimeDuration"].Errors.Count > 0)
+                                {
+                                    @Html.ValidationMessageFor(m => m.QuizViewModel.TimeDuration, ViewData.ModelState["TimeDuration"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label for="Description">Do you want to enable each Question Timer?</label>
+                                <div class="form-control checkbox form-check-inline">
+                                    @{
+                                        var questionTimerChecked = Model.QuizViewModel.EnableQuestionTimer ? "checked" : string.Empty;
+                                    }
+                                    <input type="checkbox" class="mx-2" id="EnableQuestionTimer" name="EnableQuestionTimer" value="true" @questionTimerChecked> Yes, Enable Question Timer
+                                </div>
+                                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["EnableQuestionTimer"] != null && ViewData.ModelState["EnableQuestionTimer"].Errors.Count > 0)
+                                {
+
+                                    @Html.ValidationMessageFor(m => m.QuizViewModel.EnableQuestionTimer, ViewData.ModelState["EnableQuestionTimer"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+                                }
+                            </div>
+                        </div>
+                        <hr />
+                        <button type="submit" id="updateButton" class="btn btn-warning waves-effect waves-light w-md"><i class="fas fa-save mg-r-10"></i>&nbsp;Update this Quiz</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete this Quiz</button>
+                        <a href="question?quizid=@Model.QuizId" role="button" class="btn btn-info waves-effect waves-light w-md"><i class="fas fa-list-ul mg-r-10"></i>&nbsp;Questions from this Quiz</a>
+
+                        @if (Model.QuizViewModel.NoOfQuestions > 0)
+                        {
+                            <a href="#" role="button" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-certificate mg-r-10"></i>&nbsp;Attempt this Quiz</a>
+                        }
+                        <a href="quizzes" role="button" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-times mg-r-10"></i>&nbsp;Cancel and Go Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content tx-size-sm">
+            <div class="modal-body tx-center pd-y-20 pd-x-20">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="icon icon ion-android-warning tx-100 tx-warning lh-1 mg-t-20 d-inline-block"></i>
+                <h4 class="tx-warning tx-semibold mg-b-20">Warning!</h4>
+                <p class="mg-b-20 mg-x-20">Are you sure you want to delete this record? This will not be reversible.</p>
+                <button type="button" id="deleteButton" class="btn btn-danger mg-b-20" data-toggle="modal" data-dismiss="modal"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+                <button type="button" class="btn btn-primary mg-b-20" data-toggle="modal" data-dismiss="modal"><i class="fas fa-times mg-r-10"></i>&nbsp;Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/summernote-bs4.min.js"></script>
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote({
+            height: 300
+        });
+
+    })
+</script>
+<script>
+	$(document).ready(function () {
+		CheckForTimerSection();
+
+		$("#updateButton").click(function () {
+			$("#operationForm").attr("action", "edit_quiz?quizid=@Model.QuizId");
+			$("#operationForm").submit();
+		});
+		$("#deleteButton").click(function () {
+			$("#operationForm").attr("action", "edit_quiz?handler=DeleteQuiz&quizId=@Model.QuizId");
+			$("#operationForm").submit();
+		});
+
+		$("#QuizTimerCheckbox").change(function () {
+			CheckForTimerSection();
+		});
+	});
+
+	function CheckForTimerSection() {
+		if ($('#QuizTimerCheckbox').is(":checked")) {
+			$('#EnableQuizTimer').val("true");
+			$("#timerSection").show();
+		}
+		else {
+			$('#EnableQuizTimer').val("false");
+			$("#timerSection").hide();
+		}
+	}
+</script>

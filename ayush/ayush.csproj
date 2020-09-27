@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200728183409_add_questionid.cs" />
+    <Compile Remove="Migrations\20200728183409_add_questionid.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="SendGrid" Version="9.19.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Student\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\Account\AccessDenied.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\ForgotPassword.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Login.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\Logout.cshtml" />
+    <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+    <None Include="wwwroot\lib\bootstrap-datepicker\bootstrap-datepicker.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-ui\jquery-ui.min.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery.blockUI.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\moment\moment.js" />
+    <None Include="wwwroot\lib\popper.min.js" />
+    <None Include="wwwroot\lib\sweet-alert2\sweetalert2.common.js" />
+    <None Include="wwwroot\lib\sweet-alert2\sweetalert2.js" />
+    <None Include="wwwroot\lib\sweet-alert2\sweetalert2.min.js" />
+    <None Include="wwwroot\lib\sweet-alertsv2\sweetalert2%409.js" />
+  </ItemGroup>
+
+</Project>

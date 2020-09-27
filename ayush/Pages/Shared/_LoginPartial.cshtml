@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject ayush.Services.UserService UserService
+
+@{ string UserFullName = UserService.GetUserFullame(User);}
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+                {
+                    <a class="btn btn-info waves-effect waves-light w-md" href="~/Student/Dashboard" title="Manage">Hello @UserFullName!</a>
+                }
+                else if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-info waves-effect waves-light w-md" href="~/Admin/Dashboard" title="Manage">Hello @UserFullName!</a>
+
+                }
+            </li>
+
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
+                    <button id="logout" type="submit" class="btn btn-info waves-effect waves-light w-md ml-2">Logout</button>
+                </form>
+            </li>
+        }
+        else
+        {
+
+            <li class="nav-item">
+                <a class="btn btn-info waves-effect waves-light w-md ml-2" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </li>
+        }
+    </ul>

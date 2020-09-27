@@ -1,0 +1,346 @@
+﻿@page
+@model ayush.Pages.Admin.CounsellorProfileModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+}
+<br />
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+
+                            @if (string.IsNullOrEmpty(Model.UserInformation.ProfilePictureFilePath))
+                            {
+                                <img class="img-fluid img-circle"
+                                     src="~/images/avatargeneric.png"
+                                     alt="User profile picture">
+                            }
+                            else
+                            {
+                                <img class="img-fluid img-circle"
+                                     src="~/uploads/@Model.UserInformation.ProfilePictureFilePath"
+                                     alt="User profile picture">
+                            }
+                            <strong class="position-absolute" style="cursor: pointer" onclick="showBrowseWindow()"><i class="fas fa-pencil-alt mr-1"></i></strong>
+                            <form action="~/student/profile?handler=UpdateProfilePicture" enctype="multipart/form-data" method="post" class="d-none" id="formProfilePicture">
+                                <input type="file" name="profilePicture" id="inputProfilePicture" onchange="submit()" />
+                            </form>
+                        </div>
+                        @if (string.IsNullOrEmpty(Model.ProfilePictureErrorMessage) == false)
+                        {
+                            <span class="text-danger">@Model.ProfilePictureErrorMessage</span>
+                        }
+                        @if (Model.UserInformation != null)
+                        {
+                            <h3 class="profile-username text-center">@Model.UserInformation.Firstname @Model.UserInformation.Lastname</h3>
+                        }
+                        else
+                        {
+                            <h3 class="profile-username text-center">No details found</h3>
+                        }
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Email Address</b> <a class="float-right">@Model.LoggedInUser.Email</a>
+                            </li>
+                            <li class="list-group-item">
+                                @if (Model.LoggedInUser.PhoneNumber != null && Model.LoggedInUser.PhoneNumber.Length > 0)
+                                {
+                                    <b>Phone Number</b> <a class="float-right">@Model.LoggedInUser.PhoneNumber</a>
+                                }
+                                else
+                                {
+                                    <b>Phone Number</b> <a class="float-right">-</a>
+                                }
+                            </li>
+                        </ul>
+                        <div>
+
+                            <a target="_blank" href="CounsellorCoupons" class="btn btn-info w-100 mb-2 text-white">Issue Coupons</a>
+                            <a target="_blank" href="SessionHistory" class="btn btn-info w-100 mb-2 text-white">Session History</a>
+                            <a target="_blank" href="Availability" class="btn btn-info w-100 mb-2 text-white">Availability</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <partial name="_StatusMessage" for="StatusMessage" />
+                @if (Model.CurrentLogins?.Count > 0)
+                {
+                    <h6 class="font-weight-bold">Registered Logins</h6>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var login in Model.CurrentLogins)
+                            {
+                                <tr>
+                                    <td id="@($"login-provider-{login.LoginProvider}")">@login.ProviderDisplayName</td>
+                                    <td>
+                                        <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
+                                            <div>
+                                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                                <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+              
+            </div>
+            <div class="col-md-8">
+                <form method="post" class="needs-validation">
+
+
+
+
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Personal</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Educational</a></li>
+                             
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">First name<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" placeholder="First name" required>
+                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Lastname">Last name</label>
+                                                <input asp-for="@Model.Profile.Lastname" type="text" class="form-control" id="lastname" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.PhoneNumber">Phone Number<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.PhoneNumber" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
+                                                <small id="phoneNumberHelp" class="form-text text-muted">Phone number must be 10 digits long.</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Email">Email<span class="text-red">*</span></label>
+                                                <input type="email" asp-for="@Model.Profile.Email" class="form-control" placeholder="Email" required>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="dob" asp-for="@Model.Profile.DateOfBirth">Date Of Birth<span class="text-red">*</span></label>
+                                                @if (@Model.UserInformation.DateOfBirth.HasValue)
+                                                {
+                                                    <input asp-for="@Model.Profile.DateOfBirth" type="date" class="form-control" id="dob" placeholder="Date of birth" required>
+                                                }
+                                                else
+                                                {
+                                                    <input asp-for="@Model.Profile.DateOfBirth" type="date" class="form-control" id="dob" value="" placeholder="Date of birth" required>
+
+                                                }
+                                                <span asp-validation-for="@Model.Profile.DateOfBirth" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Gender" for="exampleFormControlSelect1">Gender<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.Gender" class="form-control" id="exampleFormControlSelect1" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Address">Address<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.Address" type="text" class="form-control" id="address" placeholder="Address" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="timeline">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">Highest Qualification<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" required>
+                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Lastname">Total Experience</label>
+                                                <input asp-for="@Model.Profile.Lastname" type="text" class="form-control" id="lastname">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Lastname">Experience as Counsellor</label>
+                                                <input asp-for="@Model.Profile.Lastname" type="text" class="form-control" id="lastname">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" for="exampleInputFile">Upload Certifications</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="">Upload</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" for="exampleInputFile">Upload CV</label>
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="">Upload</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    </div>
+
+
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+
+                    <div class="row text-right">
+                        <button type="submit" class="btn btn-primary d-block ml-auto">Save changes</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<form method="post" class="needs-validation">
+                        <div class="row">
+
+
+
+
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block ml-auto">Save changes</button>
+                    </form>*@
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                @*<button type="submit" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/sweet-alert2/sweetalert2.js"></script>
+
+<link href="~/lib/sweet-alert2/sweetalert2.css" rel="stylesheet" />
+@section JavaScript {
+    <script>
+        $(document).ready(function () {
+            var element = document.getElementById("firstnav");
+            element.classList.remove("active");
+            var url = window.location;
+            var element = $('ul.nav li a').filter(function () {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }).addClass('active').parent().parent().addClass('in').parent();
+            if (element.is('a')) {
+                element.addClass('active');
+            }
+        });
+	var showSuccess = @Model.ShowSuccess.ToString().ToLower();
+
+	if (showSuccess) {
+		swal({
+			type: 'success',
+			title: 'Profile Updated Successfully!',
+		});
+	}
+
+	function preventFromEnteringAlphabets(event) {
+		const pattern = /[0-9]/;
+		if (!pattern.test(String.fromCharCode(event.charCode))) {
+			event.preventDefault();
+		}
+	}
+
+	function showBrowseWindow() {
+		$("#inputProfilePicture").click();
+	}
+
+	function submit() {
+		$("#formProfilePicture").submit();
+	}
+
+		//$(".subject-div").hide();
+		$("#className").change();
+	function onClassChange(event) {
+		if (!event.target.value || event.target.value.length === 0) {
+			$('#classNameHelper').html('Class is required.');
+			$(".subject-div").hide();
+			$(".subject-div .form-control").removeAttr("required");
+		}
+		else {
+
+			$('#classNameHelper').html('');
+			if ($("#className").val() == "11th" || $("#className").val() == "12th") {
+				$(".subject-div").show();
+				$(".subject-div .form-control").attr("required","required");
+			}
+			else {
+				$(".subject-div").hide();
+				$(".subject-div .form-control").removeAttr("required");
+			}
+		}
+	}
+    </script>
+}

@@ -1,0 +1,114 @@
+﻿@page
+@model ayush.RewardPointsModel
+@{
+    ViewData["Title"] = "Reward Points";
+    Layout = "~/Pages/Shared/_CounsellorLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Rewards History</h1>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <table id="example1" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        S.No.
+                                    </th>
+                                    <th>
+                                        Points
+                                    </th>
+                                    <th>
+                                        For 
+                                    </th>
+                                    <th>
+                                        Date
+                                    </th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        100
+                                    </td>
+                                    <td>
+                                        Referral - (Prince Mahajan - 8th Class)
+                                    </td>
+                                    <td>
+                                        10-09-2020
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        50
+                                    </td>
+                                    <td>
+                                        Activity (08-09-2020)
+                                    </td>
+                                    <td>
+                                        10-09-2020
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                         
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+
+
+@section JavaScript {
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+
+        });
+    </script>
+}
+

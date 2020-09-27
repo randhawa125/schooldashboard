@@ -1,0 +1,852 @@
+﻿@page
+@model ayush.Pages.School.StudentProfileModel
+@{
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+    <link rel="stylesheet" href="~/css/ionicons.min.css">
+}
+<br />
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+
+                            @if (string.IsNullOrEmpty(Model.UserInformation.ProfilePictureFilePath))
+                            {
+                                <img class="img-fluid img-circle"
+                                     src="~/images/avatargeneric.png"
+                                     alt="User profile picture">
+                            }
+                            else
+                            {
+                                <img class="img-fluid img-circle"
+                                     src="~/uploads/@Model.UserInformation.ProfilePictureFilePath"
+                                     alt="User profile picture">
+                            }
+                            <strong class="position-absolute" style="cursor: pointer" onclick="showBrowseWindow()"><i class="fas fa-pencil-alt mr-1"></i></strong>
+                            <form action="~/student/profile?handler=UpdateProfilePicture" enctype="multipart/form-data" method="post" class="d-none" id="formProfilePicture">
+                                <input type="file" name="profilePicture" id="inputProfilePicture" onchange="submit()" />
+                            </form>
+                        </div>
+                        @if (string.IsNullOrEmpty(Model.ProfilePictureErrorMessage) == false)
+                        {
+                            <span class="text-danger">@Model.ProfilePictureErrorMessage</span>
+                        }
+                        @if (Model.UserInformation != null)
+                        {
+                            <h3 class="profile-username text-center">@Model.UserInformation.Firstname @Model.UserInformation.Lastname</h3>
+                        }
+                        else
+                        {
+                            <h3 class="profile-username text-center">No details found</h3>
+                        }
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Email Address</b> <a class="float-right">@Model.LoggedInUser.Email</a>
+                            </li>
+                            <li class="list-group-item">
+                                @if (Model.LoggedInUser.PhoneNumber != null && Model.LoggedInUser.PhoneNumber.Length > 0)
+                                {
+                                    <b>Phone Number</b> <a class="float-right">@Model.LoggedInUser.PhoneNumber</a>
+                                }
+                                else
+                                {
+                                    <b>Phone Number</b> <a class="float-right">-</a>
+                                }
+                            </li>
+                        </ul>
+                        <div>
+                           
+                            <a target="_blank" href="#" class="btn btn-info w-100 mb-2">Result</a>
+                            <a target="_blank" href="#" class="btn btn-info w-100 mb-2">Download Report</a>
+
+                           
+                            <a target="_blank" href="#" class="btn btn-info w-100 mb-2">Career Match</a>
+                         
+                           
+                            <a target="_blank" href="notes" class="btn btn-info w-100 mb-2">Notes/Message</a>
+                         
+                        </div>
+                    </div>
+                </div>
+                <partial name="_StatusMessage" for="StatusMessage" />
+                @if (Model.CurrentLogins?.Count > 0)
+                {
+                    <h6 class="font-weight-bold">Registered Logins</h6>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var login in Model.CurrentLogins)
+                            {
+                                <tr>
+                                    <td id="@($"login-provider-{login.LoginProvider}")">@login.ProviderDisplayName</td>
+                                    <td>
+                                        <form id="@($"remove-login-{login.LoginProvider}")" asp-page-handler="RemoveLogin" method="post">
+                                            <div>
+                                                <input asp-for="@login.LoginProvider" name="LoginProvider" type="hidden" />
+                                                <input asp-for="@login.ProviderKey" name="ProviderKey" type="hidden" />
+                                                <button type="submit" class="btn btn-primary" title="Remove this @login.ProviderDisplayName login from your account">Remove</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                @*@if (Model.OtherLogins?.Count > 0)
+                    {
+                        <h6 class="font-weight-bold">Add another service to log in.</h6>
+                        <hr />
+                        <form id="link-login-form" asp-page-handler="LinkLogin" method="post" class="form-horizontal">
+                            <div id="socialLoginList">
+                                <p>
+                                    @foreach (var provider in Model.OtherLogins)
+                                    {
+                                        <button id="@($"link-login-button-{provider.Name}")" type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
+                                </p>
+                            </div>
+                        </form>
+                    }*@
+            </div>
+            <div class="col-md-8">
+                <form method="post" class="needs-validation">
+
+
+
+
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Personal</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Educational</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Family</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#piform" data-toggle="tab">PI Form</a></li>
+                            </ul>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">First name<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" placeholder="First name" required>
+                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Lastname">Last name</label>
+                                                <input asp-for="@Model.Profile.Lastname" type="text" class="form-control" id="lastname" placeholder="Last name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.PhoneNumber">Phone Number<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.PhoneNumber" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
+                                                <small id="phoneNumberHelp" class="form-text text-muted">Phone number must be 10 digits long.</small>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Email">Email<span class="text-red">*</span></label>
+                                                <input type="email" asp-for="@Model.Profile.Email" class="form-control" placeholder="Email" required>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="dob" asp-for="@Model.Profile.DateOfBirth">Date Of Birth<span class="text-red">*</span></label>
+                                                @if (@Model.UserInformation.DateOfBirth.HasValue)
+                                                {
+                                                    <input asp-for="@Model.Profile.DateOfBirth" type="date" class="form-control" id="dob" placeholder="Date of birth" required>
+                                                }
+                                                else
+                                                {
+                                                    <input asp-for="@Model.Profile.DateOfBirth" type="date" class="form-control" id="dob" value="" placeholder="Date of birth" required>
+
+                                                }
+                                                <span asp-validation-for="@Model.Profile.DateOfBirth" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Gender" for="exampleFormControlSelect1">Gender<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.Gender" class="form-control" id="exampleFormControlSelect1" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Address">Address<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.Address" type="text" class="form-control" id="address" placeholder="Address" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="timeline">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @* <label class="font-weight-light" asp-for="@Model.Profile.ClassName" for="classname">Class</label>
+                                                    <input asp-for="@Model.Profile.ClassName" type="text" class="form-control" id="classname" placeholder="Class name" required>*@
+
+                                                <label class="font-weight-light" asp-for="@Model.Profile.ClassName" for="classname">Class<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.ClassName" onchange="onClassChange(event)" class="form-control" id="className" required>
+                                                    <option value="">Select</option>
+                                                    <option value="7th">7th</option>
+                                                    <option value="8th">8th</option>
+                                                    <option value="9th">9th</option>
+                                                    <option value="10th">10th</option>
+                                                    <option value="11th">11th</option>
+                                                    <option value="12th">12th</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 subject-div">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="Profile.Subject1"></label>
+                                                <input asp-for="Profile.Subject1" class="form-control" placeholder="Subject 1" />
+                                                <span asp-validation-for="Profile.Subject1" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 subject-div">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="Profile.Subject2"></label>
+                                                <input asp-for="Profile.Subject2" class="form-control" placeholder="Subject 2" />
+                                                <span asp-validation-for="Profile.Subject2" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 subject-div">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="Profile.Subject3"></label>
+                                                <input asp-for="Profile.Subject3" class="form-control" placeholder="Subject 3" />
+                                                <span asp-validation-for="Profile.Subject3" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 subject-div">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="Profile.Subject4"></label>
+                                                <input asp-for="Profile.Subject4" class="form-control" placeholder="Subject 4" />
+                                                <span asp-validation-for="Profile.Subject4" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 subject-div">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="Profile.Subject5"></label>
+                                                <input asp-for="Profile.Subject5" class="form-control" placeholder="Subject 5" />
+                                                <span asp-validation-for="Profile.Subject5" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.SchoolName" for="schoolname">School Name<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.SchoolName" type="text" class="form-control" id="schoolname" placeholder="School name" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="settings">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherName">Father name</label>
+                                                <input asp-for="@Model.Profile.FatherName" type="text" class="form-control" placeholder="Father name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherName">Mother name</label>
+                                                <input asp-for="@Model.Profile.MotherName" type="text" class="form-control" placeholder="Mother name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherProfession">Father profession</label>
+                                                <input asp-for="@Model.Profile.FatherProfession" type="text" class="form-control" placeholder="Father profession">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherProfession">Mother profession</label>
+                                                <input asp-for="@Model.Profile.MotherProfession" type="text" class="form-control" placeholder="Mother profession">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherQualification">Father qualification</label>
+                                                <input asp-for="@Model.Profile.FatherQualification" type="text" class="form-control" placeholder="Father qualification">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherQualification">Mother qualification</label>
+                                                <input asp-for="@Model.Profile.MotherQualification" type="text" class="form-control" placeholder="Mother qualification">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane" id="piform">
+                                    <div class="text-center text-uppercase "><p><b>Family Details</b></p></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherName">Father name<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.FatherName" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherName">Mother name<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.MotherName" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherProfession">Father profession<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.FatherProfession" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherProfession">Mother profession<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.MotherProfession" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FatherQualification">Father qualification<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.FatherQualification" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.MotherQualification">Mother qualification<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.MotherQualification" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Siblings" for="Siblings">Siblings<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.Siblings" class="form-control" id="Siblings" required>
+                                                    <option value="">Select</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.ElderorYounger">Eldest, youngest or in the middle?</label>
+                                                <input asp-for="@Model.Profile.ElderorYounger" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FamilyIncome">Family Income</label>
+                                                <input asp-for="@Model.Profile.FamilyIncome" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FamilyType" for="FamilyType">Family Type<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.FamilyType" class="form-control" id="FamilyType" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Nuclear">Nuclear</option>
+                                                    <option value="Joint">Joint</option>
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="text-center text-uppercase"><p><b>Extracurricular</b></p></div>
+                                    <div class="row mt-5">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Grades">Grades (Subjects)<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.Grades" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.FavoriteSubject">Favorite Subject or interests<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.FavoriteSubject" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Achievements">Achievements - Mention a few achievements that you have had in life<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.Achievements" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.PositionOfResponsibility">Position of responsibility ( Monitor, Headboy, Anchor, House Captain etc.)Hobbies<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.PositionOfResponsibility" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    <hr />
+                                    <div class="text-center text-uppercase ">
+                                        <p><b>Other</b></p>
+                                        <p>Share your social media links, to help us know you <br />better / so that we can good friends</p>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Facebook">Facebook</label>
+                                                <input asp-for="@Model.Profile.Facebook" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Instagram">Instagram</label>
+                                                <input asp-for="@Model.Profile.Instagram" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Linkedin">Linkedin</label>
+                                                <input asp-for="@Model.Profile.Linkedin" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Twitter">Twitter</label>
+                                                <input asp-for="@Model.Profile.Twitter" type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="row mt-5">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.HowManyFriends">How many number of friends you have ?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.HowManyFriends" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.BestVacation">Tell us about your best vacation. When and Where?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.BestVacation" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="row mt-5">
+
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.DreamCareer1" for="exampleFormdreamcareer1">Your Dream Career 1<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.DreamCareer1" class="form-control" id="exampleFormdreamcareer1" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Teacher / Professor">Teacher / Professor</option>
+                                                    <option value="Photographer">Photographer</option>
+                                                    <option value="Choreographer">Choreographer</option>
+                                                    <option value="Music Director/ Music Composer/ Musician">Music Director/ Music Composer/ Musician</option>
+                                                    <option value="Painter/ Illustrator">Painter/ Illustrator</option>
+                                                    <option value="Multimedia Artist/ Animator/ Creative Director">Multimedia Artist/ Animator/ Creative Director</option>
+                                                    <option value="Actor/ Art Director">Actor/ Art Director</option>
+                                                    <option value="Graphic Designer">Graphic Designer</option>
+                                                    <option value="Fashion Designer">Fashion Designer</option>
+                                                    <option value="Interior Designer">Interior Designer</option>
+                                                    <option value="Product Designer">Product Designer</option>
+                                                    <option value="Architect">Architect</option>
+                                                    <option value="Dentist">Dentist</option>
+                                                    <option value="Medical Professional">Medical Professional</option>
+                                                    <option value="Paramedical Services">Paramedical Services</option>
+                                                    <option value="Dietician/ Nutritionist">Dietician/ Nutritionist</option>
+                                                    <option value="Journalist/ News Reporter">Journalist/ News Reporter</option>
+                                                    <option value="Psychologist/ Counsellor">Psychologist/ Counsellor</option>
+                                                    <option value="Wellness Expert">Wellness Expert</option>
+                                                    <option value="Financial Analyst/ Investment Banker/ Finanicial Advisor">Financial Analyst/ Investment Banker/ Finanicial Advisor</option>
+                                                    <option value="CA/ CS">CA/ CS</option>
+                                                    <option value="Actuarial Services">Actuarial Services</option>
+                                                    <option value="Sales and Marketing Professional">Sales and Marketing Professional</option>
+                                                    <option value="Logistics and Operations Manager">Logistics and Operations Manager</option>
+                                                    <option value="Human Resources Manage">Human Resources Manager</option>
+                                                    <option value="Digital Marketing/ Affiliate Marketing">Digital Marketing/ Affiliate Marketing</option>
+                                                    <option value="Travel Consultant/ Travel Advisor">Travel Consultant/ Travel Advisor</option>
+                                                    <option value="Hospitality Services">Hospitality Services</option>
+                                                    <option value="Event Manager">Event Manager</option>
+                                                    <option value="Chef">Chef</option>
+                                                    <option value="Police Officer">Police Officer</option>
+                                                    <option value="Security Officer">Security Officer</option>
+                                                    <option value="Lawyer/ Judge">Lawyer/ Judge</option>
+                                                    <option value="Detective">Detective</option>
+                                                    <option value="Forensic Scientist">Forensic Scientist</option>
+                                                    <option value="Public Relations Officer">Public Relations Officer</option>
+                                                    <option value="Writer/ Editor">Writer/ Editor</option>
+                                                    <option value="Fitness Trainer/ Sports Coach">Fitness Trainer/ Sports Coach</option>
+                                                    <option value="Software Developer">Software Developer</option>
+                                                    <option value="Artificial Intelligence/ Machine Learning Expert">Artificial Intelligence/ Machine Learning Expert</option>
+                                                    <option value="Network Engineer/ Cyber Security Expert">Network Engineer/ Cyber Security Expert</option>
+                                                    <option value="Data Scientist">Data Scientist</option>
+                                                    <option value="Environmentalist">Environmentalist</option>
+                                                    <option value="Scientist">Scientist</option>
+                                                    <option value="Space Scientist">Space Scientist</option>
+                                                    <option value="Biologist">Biologist</option>
+                                                    <option value="Mechanical Engineer">Mechanical Engineer</option>
+                                                    <option value="Civil Engineer">Civil Engineer</option>
+                                                    <option value="Electric and Electronics Engineer">Electric and Electronics Engineer</option>
+                                                    <option value="Disaster Management Expert">Disaster Management Expert</option>
+                                                    <option value="Outbound Trainer/ Corporate Trainer">Outbound Trainer/ Corporate Trainer</option>
+                                                    <option value="Airlines Pilot/ Commercial Pilot">Airlines Pilot/ Commercial Pilot</option>
+                                                    <option value="Farming Expert/ Agricultural Scientist">Farming Expert/ Agricultural Scientist</option>
+                                                    <option value="Administrative Services">Administrative Services</option>
+                                                    <option value="Entrepreneur">Entrepreneur</option>
+                                                    <option value="Economist">Economist</option>
+                                                    <option value="Defence Services">Defence Services</option>
+                                                    <option value="Social Worker">Social Worker</option>
+
+
+
+                                                    <option value="Coaching/ Mentoring">Coaching/ Mentoring</option>
+                                                    <option value="Content creation/ Curriculum Design/ Academic writing">Content creation/ Curriculum Design/ Academic writing</option>
+                                                    <option value="Radio Jockey/ MC">Radio Jockey/ MC</option>
+                                                    <option value="Blogger">Blogger</option>
+                                                    <option value="Social media manager">Social media manager</option>
+                                                    <option value="Critic / Product Reviewer">Critic / Product Reviewer</option>
+                                                    <option value="Image Consulting">Image Consulting</option>
+                                                    <option value="Yoga instructor">Yoga instructor</option>
+                                                    <option value="Stock Trader">Stock Trader</option>
+                                                    <option value="Customer Care Executive">Customer Care Executive</option>
+                                                    <option value="Copywriter">Copywriter</option>
+                                                    <option value="Gamer">Gamer</option>
+                                                    <option value="Fundraiser">Fundraiser</option>
+                                                    <option value="Linguistics Services">Linguistics Services</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.DreamCareer2" for="exampleFormdreamcareer2">Your Dream Career 2<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.DreamCareer2" class="form-control" id="exampleFormdreamcareer2" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Teacher / Professor">Teacher / Professor</option>
+                                                    <option value="Photographer">Photographer</option>
+                                                    <option value="Choreographer">Choreographer</option>
+                                                    <option value="Music Director/ Music Composer/ Musician">Music Director/ Music Composer/ Musician</option>
+                                                    <option value="Painter/ Illustrator">Painter/ Illustrator</option>
+                                                    <option value="Multimedia Artist/ Animator/ Creative Director">Multimedia Artist/ Animator/ Creative Director</option>
+                                                    <option value="Actor/ Art Director">Actor/ Art Director</option>
+                                                    <option value="Graphic Designer">Graphic Designer</option>
+                                                    <option value="Fashion Designer">Fashion Designer</option>
+                                                    <option value="Interior Designer">Interior Designer</option>
+                                                    <option value="Product Designer">Product Designer</option>
+                                                    <option value="Architect">Architect</option>
+                                                    <option value="Dentist">Dentist</option>
+                                                    <option value="Medical Professional">Medical Professional</option>
+                                                    <option value="Paramedical Services">Paramedical Services</option>
+                                                    <option value="Dietician/ Nutritionist">Dietician/ Nutritionist</option>
+                                                    <option value="Journalist/ News Reporter">Journalist/ News Reporter</option>
+                                                    <option value="Psychologist/ Counsellor">Psychologist/ Counsellor</option>
+                                                    <option value="Wellness Expert">Wellness Expert</option>
+                                                    <option value="Financial Analyst/ Investment Banker/ Finanicial Advisor">Financial Analyst/ Investment Banker/ Finanicial Advisor</option>
+                                                    <option value="CA/ CS">CA/ CS</option>
+                                                    <option value="Actuarial Services">Actuarial Services</option>
+                                                    <option value="Sales and Marketing Professional">Sales and Marketing Professional</option>
+                                                    <option value="Logistics and Operations Manager">Logistics and Operations Manager</option>
+                                                    <option value="Human Resources Manage">Human Resources Manager</option>
+                                                    <option value="Digital Marketing/ Affiliate Marketing">Digital Marketing/ Affiliate Marketing</option>
+                                                    <option value="Travel Consultant/ Travel Advisor">Travel Consultant/ Travel Advisor</option>
+                                                    <option value="Hospitality Services">Hospitality Services</option>
+                                                    <option value="Event Manager">Event Manager</option>
+                                                    <option value="Chef">Chef</option>
+                                                    <option value="Police Officer">Police Officer</option>
+                                                    <option value="Security Officer">Security Officer</option>
+                                                    <option value="Lawyer/ Judge">Lawyer/ Judge</option>
+                                                    <option value="Detective">Detective</option>
+                                                    <option value="Forensic Scientist">Forensic Scientist</option>
+                                                    <option value="Public Relations Officer">Public Relations Officer</option>
+                                                    <option value="Writer/ Editor">Writer/ Editor</option>
+                                                    <option value="Fitness Trainer/ Sports Coach">Fitness Trainer/ Sports Coach</option>
+                                                    <option value="Software Developer">Software Developer</option>
+                                                    <option value="Artificial Intelligence/ Machine Learning Expert">Artificial Intelligence/ Machine Learning Expert</option>
+                                                    <option value="Network Engineer/ Cyber Security Expert">Network Engineer/ Cyber Security Expert</option>
+                                                    <option value="Data Scientist">Data Scientist</option>
+                                                    <option value="Environmentalist">Environmentalist</option>
+                                                    <option value="Scientist">Scientist</option>
+                                                    <option value="Space Scientist">Space Scientist</option>
+                                                    <option value="Biologist">Biologist</option>
+                                                    <option value="Mechanical Engineer">Mechanical Engineer</option>
+                                                    <option value="Civil Engineer">Civil Engineer</option>
+                                                    <option value="Electric and Electronics Engineer">Electric and Electronics Engineer</option>
+                                                    <option value="Disaster Management Expert">Disaster Management Expert</option>
+                                                    <option value="Outbound Trainer/ Corporate Trainer">Outbound Trainer/ Corporate Trainer</option>
+                                                    <option value="Airlines Pilot/ Commercial Pilot">Airlines Pilot/ Commercial Pilot</option>
+                                                    <option value="Farming Expert/ Agricultural Scientist">Farming Expert/ Agricultural Scientist</option>
+                                                    <option value="Administrative Services">Administrative Services</option>
+                                                    <option value="Entrepreneur">Entrepreneur</option>
+                                                    <option value="Economist">Economist</option>
+                                                    <option value="Defence Services">Defence Services</option>
+                                                    <option value="Social Worker">Social Worker</option>
+                                                    <option value="Coaching/ Mentoring">Coaching/ Mentoring</option>
+                                                    <option value="Content creation/ Curriculum Design/ Academic writing">Content creation/ Curriculum Design/ Academic writing</option>
+                                                    <option value="Radio Jockey/ MC">Radio Jockey/ MC</option>
+                                                    <option value="Blogger">Blogger</option>
+                                                    <option value="Social media manager">Social media manager</option>
+                                                    <option value="Critic / Product Reviewer">Critic / Product Reviewer</option>
+                                                    <option value="Image Consulting">Image Consulting</option>
+                                                    <option value="Yoga instructor">Yoga instructor</option>
+                                                    <option value="Stock Trader">Stock Trader</option>
+                                                    <option value="Customer Care Executive">Customer Care Executive</option>
+                                                    <option value="Copywriter">Copywriter</option>
+                                                    <option value="Gamer">Gamer</option>
+                                                    <option value="Fundraiser">Fundraiser</option>
+                                                    <option value="Linguistics Services">Linguistics Services</option>
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.WhatMotivatesYou" for="exampleFormWhatMotivatesYou">What motivates you?<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.WhatMotivatesYou" class="form-control" id="exampleFormWhatMotivatesYou" required>
+                                                    <option value="">Select</option>
+
+                                                    <option value="Money and Profit">
+                                                        Money and Profit
+                                                    </option>
+                                                    <option value="Security">
+                                                        Security
+                                                    </option>
+                                                    <option value="Networking">
+                                                        Networking
+                                                    </option>
+                                                    <option value="Fun Loving">
+                                                        Fun Loving
+                                                    </option>
+                                                    <option value=" Social Service">
+                                                        Social Service
+                                                    </option>
+                                                    <option value="Recognition">
+                                                        Recognition
+                                                    </option>
+                                                    <option value="Power">
+                                                        Power
+                                                    </option>
+                                                    <option value="Respect">
+                                                        Respect
+                                                    </option>
+                                                    <option value="Knowledge Seeking">
+                                                        Knowledge Seeking
+                                                    </option>
+                                                    <option value="Creativity and Innovation">
+                                                        Creativity and Innovation
+                                                    </option>
+                                                    <option value="Goal Setting">Goal Setting </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="row mt-5">
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.WhyThisCareer">Why do you like this career?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.WhyThisCareer" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.DifferentlyAbled" for="DifferentlyAbled">Are you differently abled / Do special needs?<span class="text-red">*</span></label>
+                                                <select asp-for="@Model.Profile.DifferentlyAbled" class="form-control" id="DifferentlyAbled" required>
+                                                    <option value="">Select</option>
+                                                    <option value="Nuclear">No</option>
+                                                    <option value="Joint">Yes</option>
+
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.ExpectationsFromUpclass">What are your expectations from upclass?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.ExpectationsFromUpclass" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.HowYourFriendsDescribeYou">How would your friends describe you?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.HowYourFriendsDescribeYou" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="font-weight-light" asp-for="@Model.Profile.HowYourParentsDecribeYou">How would your parents decribe you?<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.Profile.HowYourParentsDecribeYou" type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+
+                  
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<form method="post" class="needs-validation">
+                        <div class="row">
+
+
+
+
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block ml-auto">Save changes</button>
+                    </form>*@
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                @*<button type="submit" class="btn btn-primary">Save changes</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/sweet-alert2/sweetalert2.js"></script>
+
+<link href="~/lib/sweet-alert2/sweetalert2.css" rel="stylesheet" />
+@section JavaScript {
+    <script>
+        $(document).ready(function () {
+            var element = document.getElementById("firstnav");
+            element.classList.remove("active");
+            var url = window.location;
+            var element = $('ul.nav li a').filter(function () {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }).addClass('active').parent().parent().addClass('in').parent();
+            if (element.is('a')) {
+                element.addClass('active');
+            }
+        });
+	var showSuccess = @Model.ShowSuccess.ToString().ToLower();
+
+	if (showSuccess) {
+		swal({
+			type: 'success',
+			title: 'Profile Updated Successfully!',
+		});
+	}
+
+	function preventFromEnteringAlphabets(event) {
+		const pattern = /[0-9]/;
+		if (!pattern.test(String.fromCharCode(event.charCode))) {
+			event.preventDefault();
+		}
+	}
+
+	function showBrowseWindow() {
+		$("#inputProfilePicture").click();
+	}
+
+	function submit() {
+		$("#formProfilePicture").submit();
+	}
+
+		//$(".subject-div").hide();
+		$("#className").change();
+	function onClassChange(event) {
+		if (!event.target.value || event.target.value.length === 0) {
+			$('#classNameHelper').html('Class is required.');
+			$(".subject-div").hide();
+			$(".subject-div .form-control").removeAttr("required");
+		}
+		else {
+
+			$('#classNameHelper').html('');
+			if ($("#className").val() == "11th" || $("#className").val() == "12th") {
+				$(".subject-div").show();
+				$(".subject-div .form-control").attr("required","required");
+			}
+			else {
+				$(".subject-div").hide();
+				$(".subject-div .form-control").removeAttr("required");
+			}
+		}
+	}
+    </script>
+}

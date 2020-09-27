@@ -1,0 +1,141 @@
+﻿@page
+@model ayush.slotsModel
+@{
+	ViewData["Title"] = "slots";
+	Layout = "~/Pages/Shared/_CounsellorLayout.cshtml";
+	<link href="~/lib/bootstrap-datepicker/bootstrap-datepicker3.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="text-uppercase">Availability</h5>
+            </div>
+        </div>
+    </div>
+</section>
+	
+<div class="content">
+    <div class="row">
+       
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header border-0">
+
+                    <h3 class="card-title">
+                        <i class="far fa-calendar-alt"></i>
+                        Choose Date
+                    </h3>
+
+                </div>
+
+                <div class="card-body pt-0">
+
+
+                    <div id="datepicker" style="width: 100%"></div>
+                </div>
+
+            </div>
+           
+        </div>
+        <div id="slotsContainer" class="col-md-6" style="display: none;">
+
+
+            <div class="card">
+                <div class="card-header border-0">
+
+                    <h3 class="card-title">
+                        <i class="far fa-calendar-alt"></i>
+                        Choose Time
+                    </h3>
+
+                </div>
+
+                <div class="card-body pt-3">
+
+
+                    <div id="slots">
+                    </div>
+
+
+
+
+                </div>
+				</div>
+
+
+
+
+            </div>
+            <div class="col-md-12 text-left mt-3">
+                <button onclick="saveSlots()" class="btn btn-success my-auto">Save</button>
+            </div>
+        </div>
+</div>
+
+
+<script>
+	$('#datepicker').datepicker({
+		startDate: truncateDate(new Date())
+	});
+
+	function truncateDate(date) {
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	}
+
+	$('#datepicker').on('changeDate', function () {
+		$(".wrapper").block({ message: '' });
+		$.ajax({
+			type: "GET",
+			url: "/api/slot/GetSlot?date=" + $('#datepicker').datepicker('getFormattedDate'),
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (response) {
+				$("#slots").html("");
+				for (var i = 0; i < 8; i++) {
+					var isCheckedString = response[i].isAvailable ? "" : 'checked = "checked"'
+					var element = '<label for="slot' + i + '" class="mr-4">' + response[i].slotName + '</label>' +
+						'<input type="checkbox" id="slot' + i + '" name="' + response[i].slotName + '" ' + isCheckedString + ' />' + "<br/>";
+					$("#slots").append(element);
+				}
+				$("#slotsContainer").show();
+				$(".wrapper").unblock({ message: '' });
+			},
+			failure: function (response) {
+				$(".wrapper").unblock({ message: '' });
+			}
+		});
+	});
+
+	function saveSlots() {
+		$(".wrapper").block({ message: '' });
+		var slots = [];
+		$("#slots input:checked").each(function () {
+			slots.push($(this).attr('name'));
+		});
+		$.ajax({
+			type: "Post",
+			url: "/api/slot/SaveSlots?date=" + $('#datepicker').datepicker('getFormattedDate'),
+			data: JSON.stringify(slots),
+			contentType: "application/json; charset=utf-8",
+			//dataType: "json",
+			success: function (response) {
+				$(".wrapper").unblock({ message: '' });
+				swal({
+					type: 'success',
+					title: 'Updated Successfully!',
+				});
+			},
+			failure: function (response) {
+				$(".wrapper").unblock({ message: '' });
+			}
+		});
+	}
+</script>
+<style>
+	#datepicker .datepicker-inline {
+		margin: auto
+	}
+</style>

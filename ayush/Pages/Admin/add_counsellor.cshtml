@@ -1,0 +1,174 @@
+﻿@page
+@model ayush.Pages.Admin.add_counsellorModel
+@{
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Register Counsellor</h1>
+            </div>
+
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <!-- SELECT2 EXAMPLE -->
+            <div class="card card-default">
+
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.FirstName"></label>
+                                <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
+
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.LastName"></label>
+                                    <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+
+                                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.Designation">Date Of Birth<span class="text-red">*</span></label>
+                                    <input type="date" class="form-control" asp-for="Input.Designation" value="" required="" data-val="true" data-val-required="Date of birth is required">
+                                    <span asp-validation-for="Input.Designation" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="exampleFormControlSelect1">Gender<span class="text-red">*</span></label>
+                                    <select class="form-control" id="exampleFormControlSelect1" required="" data-val="true" data-val-required="Gender is required" name="Profile.Gender">
+                                        <option value="">Select</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.Address"></label>
+                                    <input asp-for="Input.Address" class="form-control" placeholder="Address" />
+
+                                    <span asp-validation-for="Input.Address" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <!-- /.col -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.PhoneNumber"></label>
+                                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
+
+                                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.Email"></label>
+                                    <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="firstname">Highest Qualification<span class="text-red">*</span></label>
+                                    <input type="text" class="form-control" id="firstname" required="" name="Profile.Firstname" value="">
+                                    <span class="text-danger field-validation-valid" data-valmsg-for="Profile.Firstname" data-valmsg-replace="true"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="Profile_Lastname">Total Experience</label>
+                                    <input type="text" class="form-control" id="lastname" name="Profile.Lastname" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="Profile_Lastname">Experience as Counsellor</label>
+                                    <input type="text" class="form-control" id="lastname" name="Profile.Lastname" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="exampleInputFile">Upload Certifications (It should be multiple upload)</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="">Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-light" for="exampleInputFile">Upload CV</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile">
+                                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="">Upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.Password"></label>
+                                    <input asp-for="Input.Password" class="form-control" placeholder="Password" />
+
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Input.ConfirmPassword"></label>
+                                    <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
+
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <!-- /.close here -->
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
+                    </div>
+                <!-- /.card-body -->
+                <div class="card-footer text-right">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,429 @@
+﻿@page
+@model ayush.Pages.Admin.add_timed_questionModel
+@{
+	ViewData["Title"] = "add_timed_question";
+	Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card">
+				<div class="card-header">
+					<h1>Add New Timed Question</h1>
+				</div>
+				<div class="card-body">
+					<div>
+						<form role="form" id="operationForm" method="post">
+							<input type="hidden" id="QuizID" name="QuizID" value="@Model.QuestionViewModel.QuizId" />
+
+							<div class="form-group">
+								<label for="Title">Question Title</label>
+								@*<input class="form-control" type="text" id="Title" name="Title" value="@Model.QuestionViewModel.Title" placeholder="Enter question title">*@
+								<textarea class="textarea" placeholder="Place some text here" name="Title" id="Title"
+										  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+								@Model.QuestionViewModel.Title</textarea>
+								@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Title"] != null && ViewData.ModelState["Title"].Errors.Count > 0)
+								{
+									@Html.ValidationMessageFor(m => m.QuestionViewModel.Title, ViewData.ModelState["Title"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+								}
+
+								<div class="image-holder pull-left">
+									<input class="txtfield form-control" type="hidden" name="questionfile" value="">
+									<img src="" class="img-thumbnail" style="height: 300px; display:none">
+								</div>
+								<span class="error-holder"></span>
+								<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+								<div class="clearfix"></div>
+							</div>
+
+							<div>
+								<label for="Title">Question Time</label>
+								<div class="form-group">
+									<label for="Hours">Hours</label>
+									<input class="form-control" type="text" id="Hours" name="Hours" value="@Model.QuestionViewModel.Hours" placeholder="Enter Hours Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Hours"] != null && ViewData.ModelState["Hours"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Hours, ViewData.ModelState["Hours"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									<label for="Minutes">Minutes</label>
+									<input class="form-control" type="text" id="Minutes" name="Minutes" value="@Model.QuestionViewModel.Minutes" placeholder="Enter Minutes Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Minutes"] != null && ViewData.ModelState["Minutes"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Minutes, ViewData.ModelState["Minutes"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									<label for="Seconds">Seconds</label>
+									<input class="form-control" type="text" id="Seconds" name="Seconds" value="@Model.QuestionViewModel.Seconds" placeholder="Enter Seconds Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Seconds"] != null && ViewData.ModelState["Seconds"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Minutes, ViewData.ModelState["Seconds"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["TimeDuration"] != null && ViewData.ModelState["TimeDuration"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.TimeDuration, ViewData.ModelState["TimeDuration"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="Description">Should this Question have differnt time duration for options?</label>
+								<div class="form-control checkbox form-check-inline">
+									@{
+										var OptionTimerChecked = Model.QuestionViewModel.HasOptionsTime ? "checked" : string.Empty;
+									}
+									<input type="checkbox" class="mx-2" id="OptionTimerCheckbox" @OptionTimerChecked> Yes, Enable Options Timer
+									<input type="hidden" name="EnableOptionTimer" id="EnableOptionTimer" />
+								</div>
+							</div>
+
+							<div id="timerSection">
+								<label for="Title">Options Time</label>
+								<div class="form-group">
+									<label for="Hours">Hours</label>
+									<input class="form-control" type="text" id="OptionHours" name="OptionHours" value="@Model.QuestionViewModel.OptionHours" placeholder="Enter Hours Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["OptionHours"] != null && ViewData.ModelState["OptionHours"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Hours, ViewData.ModelState["OptionHours"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									<label for="Minutes">Minutes</label>
+									<input class="form-control" type="text" id="OptionMinutes" name="OptionMinutes" value="@Model.QuestionViewModel.OptionMinutes" placeholder="Enter Minutes Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["OptionMinutes"] != null && ViewData.ModelState["OptionMinutes"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Minutes, ViewData.ModelState["OptionMinutes"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									<label for="OptionSeconds">Seconds</label>
+									<input class="form-control" type="text" id="OptionSeconds" name="OptionSeconds" value="@Model.QuestionViewModel.OptionSeconds" placeholder="Enter Seconds Duration">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["OptionSeconds"] != null && ViewData.ModelState["OptionSeconds"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.Minutes, ViewData.ModelState["OptionSeconds"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+								<div class="form-group">
+									@if (!ViewData.ModelState.IsValid && ViewData.ModelState["OptionTimeDuration"] != null && ViewData.ModelState["OptionTimeDuration"].Errors.Count > 0)
+									{
+										@Html.ValidationMessageFor(m => m.QuestionViewModel.TimeDuration, ViewData.ModelState["OptionTimeDuration"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+									}
+								</div>
+							</div>
+
+							@*<div>
+									<label><span name="optionNoText">Correct Options</span></label>
+								</div>
+
+								@if (Model.QuestionViewModel.CorrectOptions != null && Model.QuestionViewModel.CorrectOptions.Count > 0)
+								{
+									foreach (var correctOption in Model.QuestionViewModel.CorrectOptions)
+									{
+										if (correctOption.Image != null)
+										{
+											<div class="option form-group">
+												<div class="image-holder pull-left">
+													<input class="txtfield form-control" type="hidden" name="correctOption@(Model.QuestionViewModel.CorrectOptions.IndexOf(correctOption) + 1)" value="@correctOption.Image.Id">
+													<img src="/uploads/@correctOption.Image.Name" class="img-thumbnail" style="height: 300px;">
+												</div>
+												<div class="delete-holder pull-left p-20">
+													<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+												</div>
+												<span class="error-holder"></span>
+												<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+												<div class="clearfix"></div>
+											</div>
+										}
+										else
+										{
+											<div class="option form-group">
+												<div class="image-holder pull-left">
+													<input class="txtfield form-control" type="hidden" name="correctOption@(Model.QuestionViewModel.CorrectOptions.IndexOf(correctOption) + 1)" value="">
+													<img src="" class="img-thumbnail" style="height: 300px;">
+												</div>
+												<div class="delete-holder pull-left p-20">
+													<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+												</div>
+												<span class="error-holder"></span>
+												<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+												<div class="clearfix"></div>
+											</div>
+										}
+									}
+								}
+								else
+								{
+									<div class="option form-group">
+										<div class="image-holder pull-left">
+											<input class="txtfield form-control" type="hidden" name="correctOption1" value="">
+											<img src="" class="img-thumbnail" style="height: 300px; display:none">
+										</div>
+										<div class="delete-holder pull-left p-20" style="display: none;">
+											<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+										</div>
+										<span class="error-holder"></span>
+										<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+										<div class="clearfix"></div>
+									</div>
+								}
+
+								<span id="correctOptions"></span>*@
+
+							@if (!ViewData.ModelState.IsValid && ViewData.ModelState["CorrectOptions"] != null && ViewData.ModelState["CorrectOptions"].Errors.Count > 0)
+							{
+								@Html.ValidationMessageFor(m => m.QuestionViewModel.CorrectOptions, ViewData.ModelState["CorrectOptions"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+							}
+
+							<div>
+								<label><span name="optionNoText">Options</span></label>
+							</div>
+
+							@if (Model.QuestionViewModel.Options != null && Model.QuestionViewModel.Options.Count > 0)
+							{
+								foreach (var option in Model.QuestionViewModel.Options)
+								{
+									<div class="option form-group row">
+										<div class="col-6">
+											<div class="image-holder pull-left">
+												<input class="txtfield" type="hidden" name="option@(Model.QuestionViewModel.Options.IndexOf(option) + 1)" value="@option.Image.Id">
+												<img src="/uploads/@option.Image.Name" class="img-thumbnail" style="height: 300px;">
+											</div>
+											<div class="delete-holder pull-left p-20">
+												<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+											</div>
+											<span class="error-holder"></span>
+											<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+											<div class="clearfix"></div>
+										</div><label class="text-right col-3">Is Option Correct?</label>
+										<input class="form-control col-1" type="checkbox" name="isoptioncorrect@(Model.QuestionViewModel.Options.IndexOf(option) + 1)" value="@option.IsCorrect">
+									</div>
+								}
+							}
+							else
+							{
+								<div class="option form-group row">
+									<div class="col-6">
+										<div class="image-holder pull-left">
+											<img src="" class="txtfield img-thumbnail" style="height: 300px; display:none">
+											<input class="txtfield form-control" type="hidden" name="option1" value="">
+										</div>
+										<div class="delete-holder pull-left p-20" style="display: none;">
+											<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+										</div>
+										<span class="error-holder"></span>
+										<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+										<div class="clearfix"></div>
+									</div>
+									<label class="text-right col-3">Is Option Correct?</label>
+									<input class="form-control col-1" type="checkbox" name="isoptioncorrect1">
+								</div>
+							}
+
+							<span id="options"></span>
+
+							@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Options"] != null && ViewData.ModelState["Options"].Errors.Count > 0)
+							{
+								@Html.ValidationMessageFor(m => m.QuestionViewModel.Options, ViewData.ModelState["Options"].Errors.FirstOrDefault().ErrorMessage, new { @class = "text-danger" })
+							}
+
+							<div id="actionsRow">
+								<hr />
+								@*<button type="button" id="addCorrectOptionButton" class="btn btn-info waves-effect waves-light w-md"><i class="fas fa-plus mg-r-10"></i>&nbsp;Add Correct Option</button>*@
+								<button type="button" id="addOptionButton" class="btn btn-info waves-effect waves-light w-md"><i class="fas fa-plus mg-r-10"></i>&nbsp;Add Option</button>
+								<button type="submit" id="addButton" class="btn btn-success waves-effect waves-light w-md"><i class="fas fa-save mg-r-10"></i>&nbsp;Save this Question and Add Another</button>
+								<a href="question?quizid=@Model.QuestionViewModel.QuizId" role="button" class="btn btn-primary waves-effect waves-light w-md"><i class="fas fa-times mg-r-10"></i>&nbsp;Cancel and Go Back</a>
+							</div>
+						</form>
+
+						@*<div class="correctOptionRowTemplateImage" style="display:none">
+								<div class="image-holder pull-left">
+									<input class="txtfield form-control" type="hidden" name="correctOptionNo">
+									<img src="" class="img-thumbnail" style="height: 300px; display: none;">
+								</div>
+								<div class="delete-holder pull-left p-20" style="display: none;">
+									<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+								</div>
+								<span class="error-holder"></span>
+								<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+								<div class="clearfix"></div>
+							</div>*@
+
+						<div class="optionRowTemplateImage" style="display:none">
+							<div class="col-6">
+								<div class="image-holder pull-left">
+									<input class="txtfield form-control" type="hidden" name="optionNo">
+									<img src="" class="img-thumbnail" style="height: 300px; display: none;">
+								</div>
+								<div class="delete-holder pull-left p-20" style="display: none;">
+									<button type="button" class="delete-image btn btn-danger waves-effect waves-light w-md"><i class="fas fa-trash-alt mg-r-10"></i>&nbsp;Delete</button>
+								</div>
+								<span class="error-holder"></span>
+								<input class="image-uploader form-control" type="file" accept=".png,.jpg,.jpeg,.gif,.tif" />
+								<div class="clearfix"></div>
+							</div>
+							<label class="text-right col-3">Is Option Correct?</label>
+							<input class="form-control col-1" type="checkbox" name="isoptioncorrect">
+						</div>
+
+						<div id="errorDiv" style="display:none">
+							<div class="m-t-10 alert alert-icon alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								<i class="mdi mdi-alert"></i>
+								<span class="error-message">
+								</span>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section JavaScript
+{
+	<script>
+		$(document).ready(function () {
+
+			// Summernote
+			$('.textarea').summernote({
+				height: 300
+			});
+
+			//$("#addCorrectOptionButton").click(function () {
+			//	AddCorrectOption();
+			//});
+
+			$("#addOptionButton").click(function () {
+				AddOption();
+			});
+
+			$("#OptionTimerCheckbox").change(function () {
+				CheckForTimerSection();
+			});
+
+			ImageUploadsListen();
+			ImageDeleterListen();
+
+			CheckForTimerSection();
+		});
+
+		function CheckForTimerSection() {
+			if ($('#OptionTimerCheckbox').is(":checked")) {
+				$('#EnableOptionTimer').val("true");
+				$("#timerSection").show();
+			}
+			else {
+				$('#EnableOptionTimer').val("false");
+				$("#timerSection").hide();
+			}
+		}
+
+		function ImageUploadsListen() {
+			$(".image-uploader").off('change', ImageUploader).on('change', ImageUploader);
+		}
+
+		function ImageDeleterListen() {
+			$(".delete-image").off('click', ImageDeleter).on('click', ImageDeleter);
+		}
+
+		function ImageDeleter() {
+			$(this).parents('.option').remove();
+		}
+
+		function ImageUploader() {
+
+			var element = this;
+
+			$(element).prevAll('.image-holder').first().children('.txtfield').val("");
+			$(element).prevAll('.image-holder').first().children('.img-thumbnail').hide();
+			$(element).prevAll('.image-holder').first().children('.img-thumbnail').attr('src', '');
+			$(element).prevAll('.error-holder').first().html("");
+			$(element).prevAll('.delete-holder').first().hide();
+
+			var formData = new FormData();
+			var totalFiles = element.files.length;
+			for (var i = 0; i < totalFiles; i++) {
+				var file = element.files[i];
+				formData.append("Photo", file);
+			}
+
+			$.ajax({
+				type: "POST",
+				url: '/api/home/uploadimage',
+				data: formData,
+				dataType: 'json',
+				contentType: false,
+				processData: false
+			}).done(function (data) {
+				if (data.success) {
+					$(element).prevAll('.image-holder').first().children('.txtfield').val(data.file);
+					$(element).prevAll('.image-holder').first().children('.img-thumbnail').attr('src', data.imageURL);
+					$(element).prevAll('.image-holder').first().children('.img-thumbnail').show();
+
+					$(element).prevAll('.delete-holder').first().show();
+				}
+				else {
+					console.log(data.Message);
+
+					var $error = $('#errorDiv').clone();
+					$error.find('.error-message').html(data.Message);
+					$error.removeAttr("id");
+					$(element).prevAll('.error-holder').first().append($error);
+					$error.slideDown();
+				}
+			}).fail(function (xhr, status, errorThrown) {
+				console.log(errorThrown);
+
+				var $error = $('#errorDiv').clone();
+				$error.find('.error-message').html(errorThrown);
+				$error.removeAttr("id");
+				$(element).prevAll('.error-holder').first().append($error);
+				$error.slideDown();
+			});
+		}
+
+		//function AddCorrectOption() {
+		//	$('<div/>', {
+		//		'class': 'option form-group', html: GetImageCorrectOptionHtml()
+		//	}).hide().insertBefore('#correctOptions').slideDown('slow');
+
+		//	ImageUploadsListen();
+		//	ImageDeleterListen();
+		//}
+
+		function AddOption() {
+			$('<div/>', {
+				'class': 'option form-group row', html: GetImageOptionHtml()
+			}).hide().insertBefore('#options').slideDown('slow');
+
+			ImageUploadsListen();
+			ImageDeleterListen();
+		}
+
+		//function GetImageCorrectOptionHtml() {
+		//	var len = $('.option').length + 1;
+		//	var $html = $('.correctOptionRowTemplateImage').clone();
+		//	$html.find('[name=correctOptionNo]')[0].name = "correctOptionNo" + len;
+		//	return $html.html();
+		//}
+
+		function GetImageOptionHtml() {
+			var len = $('.option').length + 1;
+			var $html = $('.optionRowTemplateImage').clone();
+			$html.find('[name=optionNo]')[0].name = "optionNo" + len;
+			$html.find('[name=isoptioncorrect]')[0].name = "isoptioncorrect" + len;
+			return $html.html();
+		}
+
+	</script>
+}

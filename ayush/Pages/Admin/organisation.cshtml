@@ -1,0 +1,67 @@
+﻿@page
+@using ayush.Models;
+@using ayush.Data;
+@model ayush.Pages.Admin.organisationModel
+@{
+	Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+	<link rel="stylesheet" href="~/css/ionicons.min.css">
+}
+<section class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-12">
+				<h1>Organisation Info</h1>
+			</div>
+
+		</div>
+	</div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card card-primary">
+
+				<div class="card-body">
+					<form method="post">
+						@foreach (var property in Model.SystemInformation)
+						{
+							<div class="form-group">
+								<label>@property.PropertyName</label>
+								<input class="form-control" name="@property.PropertyName" value="@property.PropertyValue" />
+							</div>
+						}
+
+						<div class="form-group">
+							<a href="~/Admin/Dashboard" type="submit" class="btn btn-secondary mr-2">Cancel</a>
+							<input type="submit" value="Update Info" class="btn btn-success">
+						</div>
+					</form>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		</div>
+
+	</div>
+
+	<br />
+</section>
+@section JavaScript
+{
+	<script src="~/js/demo.js"></script>
+	<script src="~/lib/sweet-alert2/sweetalert2.js"></script>
+
+	<link href="~/lib/sweet-alert2/sweetalert2.css" rel="stylesheet" />
+	<script>
+		var showSuccess = @Model.ShowSuccess.ToString().ToLower();
+
+	if (showSuccess) {
+		swal({
+			type: 'success',
+			title: 'Information Updated Successfully!',
+		});
+	}
+	</script>
+}

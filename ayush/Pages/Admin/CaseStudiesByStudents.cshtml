@@ -1,0 +1,120 @@
+﻿@page
+@model ayush.Pages.Admin.CaseStudiesByStudentsModel
+@{
+    ViewData["Title"] = "Case Studies Uploaded by Students";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h3>Case Studies Uploaded By Students</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="dtCaseStudy" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td style="width:10%;text-align:left">S.No.</td>
+                            <td style="width:30%">Student Name</td>
+                            <td style="width:15%">Uploaded On</td>
+                            <td style="width:10%">Download</td>
+                            <td style="width:10%">Delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+       
+        </div>
+      
+
+
+    </div>
+</div>
+@section JavaScript
+{
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        let table = {};
+        $(document).ready(function () {
+            bindCaseStudies();
+        });
+
+        function bindCaseStudies() {
+            table = $('#dtCaseStudy').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "orderMulti": false,
+                ajax: {
+                    "url": "/api/Student/studentCaseStudies",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                columns: [
+                    { "data": "srNo", "name": "Sr. No.", "autoWidth": true },
+                    { "data": "studentName", "name": "Student Name", "autoWidth": true },
+                    {
+                        "data": "uploadedOn", "name": "Uploaded On", "autoWidth": true, "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('DD/MM/YYYY');
+                        } },
+                    {
+                        "data": "fileName",
+                        "searchable": false,
+                        "sortable": false,
+                        "render": function (data, type, full, meta) {
+                            var returnVal = '<a target="_blank" href="' + full.fileName + '"><span class="badge bg- primary">Download</span></a>';
+                            return returnVal;
+                        }
+                    },
+                    {
+                        "data": "Id",
+                        "searchable": false,
+                        "sortable": false,
+                        "render": function (data, type, full, meta) {
+                            var returnVal = '<a href="#" onclick="removeCaseStudy(' + full.id + ');"><i class="fa fa-trash text-danger"></i></a>';
+                            return returnVal;
+                        }
+                    }
+                ]
+            });
+        }
+
+        function removeCaseStudy(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This would remove this case study and you would not be able to recover it.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "/api/Student/removeCaseStudy?id=" + id,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            if (response == true) {
+                                $('#dtCaseStudy').DataTable().ajax.reload();
+                                notifySucess("Case Study has been removed successfully!")
+                            } else {
+                                notifyError("Unexpected error!");
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,218 @@
+﻿@page
+@model ayush.sessionsModel
+@{
+    ViewData["Title"] = "sessions";
+    Layout = "~/Pages/Shared/_CounsellorLayout.cshtml";
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+}
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>My Students</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li>
+                        <a class="btn btn-app border border-info" asp-page="">
+                            <i class="fas fa-file"></i> Download List
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Active Sessions</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Completed</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="active tab-pane" id="activity">
+
+                                <div>
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Student
+                                                </th>
+                                                <th>
+                                                    Class
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                                <th>
+                                                    Date
+                                                </th>
+                                                <th>
+                                                    Time
+                                                </th>
+                                                <th>
+                                                    Session
+                                                </th>
+                                                <th>
+                                                    View Profile
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var session in Model.Sessions)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @session.StudentName
+                                                    </td>
+                                                    <td>
+                                                        8th
+                                                    </td>
+                                                    <td>
+                                                        Test Submitted
+                                                    </td>
+                                                    <td>
+                                                        @session.Date.ToShortDateString()
+                                                    </td>
+                                                    <td>
+                                                        @DateTime.Today.Add(session.StartTime).ToString("hh:mm tt") - @DateTime.Today.Add(session.EndTime).ToString("hh:mm tt")
+                                                    </td>
+                                                    <td>
+                                                        Session 1
+                                                    </td>
+                                                    <td>
+                                                        <a href="StudentProfile?id=@session.UserId"><i class="fa fa-eye"></i> View</a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="timeline">
+
+                                <div>
+
+                                    <table id="example2" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Student
+                                                </th>
+                                                <th>
+                                                    Class
+                                                </th>
+                                                <th>
+                                                    Status
+                                                </th>
+                                                <th>
+                                                    Date
+                                                </th>
+                                                <th>
+                                                    Time
+                                                </th>
+                                                <th>
+                                                    Session
+                                                </th>
+                                                <th>
+                                                    View Profile
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var session in Model.Sessions)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @session.StudentName
+                                                    </td>
+                                                    <td>
+                                                        8th
+                                                    </td>
+                                                    <td>
+                                                        Test Submitted
+                                                    </td>
+                                                    <td>
+                                                        @session.Date.ToShortDateString()
+                                                    </td>
+                                                    <td>
+                                                        @DateTime.Today.Add(session.StartTime).ToString("hh:mm tt") - @DateTime.Today.Add(session.EndTime).ToString("hh:mm tt")
+                                                    </td>
+                                                    <td>
+                                                        Session 1
+                                                    </td>
+                                                    <td>
+                                                        <a href="StudentProfile"><i class="fa fa-eye"></i> View</a>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+
+
+            </div>
+          
+        </div>
+        
+    </div>
+   
+</section>
+
+
+
+
+    
+
+@section JavaScript {
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $("#example2").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example3').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+}
+

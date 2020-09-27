@@ -1,0 +1,77 @@
+﻿@page
+@model ayush.questionModel
+@{
+    ViewData["Title"] = "question";
+    Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Questions</h1>
+                    <a class="btn btn-primary" href="add_text_question?quizId=@Model.QuizId"><i class="fas fa-plus"></i>&nbsp;Add New Text Question</a>
+                    <a class="btn btn-primary" href="add_image_question?quizId=@Model.QuizId"><i class="fas fa-plus"></i>&nbsp;Add New Image Question</a>
+                    <a class="btn btn-primary" href="add_timed_question?quizId=@Model.QuizId"><i class="fas fa-plus"></i>&nbsp;Add New Timed Question</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.Questions != null && Model.Questions.Count > 0)
+                    {
+                        <div class="col-md-12 table-responsive">
+                            <table class="table table-striped table-bordered m-b-0">
+                                <thead>
+                                    <tr>
+                                        <th>Question</th>
+                                        <th>Type</th>
+                                        <th class="text-center hide-phone">Options</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var question in Model.Questions)
+                                    {
+                                    <tr>
+                                        <td class="align-middle">@Html.Raw(question.Title)</td>
+                                        <td class="align-middle text-center wrap-td hide-phone">@question.QuestionType.ToString()</td>
+                                        <td class="align-middle text-center wrap-td hide-phone">@question.Options.Count</td>
+                                        <td class="align-middle wrap-td">
+                                            <div class="input-group">
+                                                @if (question.QuestionType == Models.Enums.QuestionType.Image)
+                                                {
+                                                    <a href="edit_image_question?quizId=@Model.QuizId&questionId=@question.Id" role="button" class="btn btn-primary btn-sm"><i class="fas fa-edit mg-r-10"></i>&nbsp;Modify Question</a>
+                                                }
+                                                else if (question.QuestionType == Models.Enums.QuestionType.Text)
+                                                {
+                                                    <a href="edit_text_question?quizId=@Model.QuizId&questionId=@question.Id" role="button" class="btn btn-primary btn-sm"><i class="fas fa-edit mg-r-10"></i>&nbsp;Modify Question</a>
+                                                }
+                                                else if (question.QuestionType == Models.Enums.QuestionType.Timed)
+                                                {
+                                                    <a href="edit_timed_question?quizId=@Model.QuizId&questionId=@question.Id" role="button" class="btn btn-primary btn-sm"><i class="fas fa-edit mg-r-10"></i>&nbsp;Modify Question</a>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="m-t-10 alert alert-icon alert-warning" role="alert">
+                                        <i class="mdi mdi-alert"></i>
+                                        Sorry. No Questions Found.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

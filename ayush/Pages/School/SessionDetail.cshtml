@@ -1,0 +1,85 @@
+﻿@page
+@model ayush.SessionDetailmodel
+@{
+    ViewData["Title"] = "Session Detail";
+    Layout = "~/Pages/Shared/_SchoolLayout.cshtml";
+   
+}
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail2">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail2" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Contact Number</label>
+                    <input type="email" class="form-control" id="exampleInputEmail3" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Session Title</label>
+                    <input type="email" class="form-control" id="exampleInputEmail4" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Session Start Date</label>
+                    <input type="email" class="form-control" id="exampleInputEmail5" readonly>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+
+                <button type="button" class="btn btn-primary">Send Request</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 class="text-uppercase">Session Title</h5>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <p>Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... Complete Description about the workshop will be written here... </p>
+                <div class="row text-right pr-2">
+                   
+                    <a href="#" data-toggle="modal" data-target="#modal-default" class="btn btn-primary d-block ml-auto">Book Now</a>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+
+@section JavaScript {
+   
+    <script>
+
+        function sendBuyRequest() {
+            $("#buyRequest").modal("show");
+        }
+    </script>
+}
