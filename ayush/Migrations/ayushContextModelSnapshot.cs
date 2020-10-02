@@ -225,6 +225,80 @@ namespace ayush.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ayush.Models.AddSchoolInfo", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("Address_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("ConfirmPassword")
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<string>("Designation_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("Email_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("HighQualification_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("varchar(15)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("PhoneNumber_POC")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<DateTime>("RegisteredDate")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("SchoolID")
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("SchoolName")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("UploadCertifications_POC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UploadCv_POC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AddSchoolInfos");
+                });
+
             modelBuilder.Entity("ayush.Models.AttemptedOption", b =>
                 {
                     b.Property<int>("Id")
@@ -428,6 +502,36 @@ namespace ayush.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Careers");
+                });
+
+            modelBuilder.Entity("ayush.Models.CaseStudy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CaseDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaseTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UploadedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("UploadedByStudent")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UploadedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CaseStudy");
                 });
 
             modelBuilder.Entity("ayush.Models.FeedbackFormModel", b =>
@@ -848,6 +952,30 @@ namespace ayush.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Quizzes");
+                });
+
+            modelBuilder.Entity("ayush.Models.RewardsRegister", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("RegisteredUserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RewardDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RewardPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RewardsRegister");
                 });
 
             modelBuilder.Entity("ayush.Models.Session", b =>
@@ -1600,6 +1728,51 @@ namespace ayush.Migrations
                         .HasMaxLength(250);
 
                     b.Property<string>("BestVacation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathOne1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathOne2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathOne3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathOne4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathOne5")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathThree1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathThree2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathThree3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathThree4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathThree5")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathTwo1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathTwo2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathTwo3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathTwo4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CareerPathTwo5")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClassName")

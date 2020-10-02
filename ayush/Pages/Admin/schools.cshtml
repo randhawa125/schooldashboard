@@ -20,9 +20,11 @@
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-app" asp-page="add_admin">
-                            <i class="fas fa-file"></i> Export to Excel
-                        </a>
+                        <form method="post" asp-page-handler="ExportExcel">
+                            <a class="btn btn-app" asp-page="index">
+                                <i class="fas fa-file"></i> Export to Excel
+                            </a>
+                        </form>
                     </li>
 
                 </ol>
@@ -64,11 +66,11 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Id)
+                                            @Html.DisplayFor(modelItem => item.SchoolID)
                                         </td>
                                         <td>
                                             <a>
-                                                @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                                                @Html.DisplayFor(modelItem => item.Name_POC) 
                                             </a>
                                             <br />
                                            
@@ -78,20 +80,31 @@
                                             @Html.DisplayFor(modelItem => item.Address)
                                         </td>
                                         <td>
-                                            16-09-2020
+                                            @Html.DisplayFor(modelItem => item.RegisteredDate,new { @type="date"})
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" href="SchoolProfile">
+                                            <a class="btn btn-primary btn-sm" asp-route-id="item.ID" asp-page="SchoolProfile">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 View
                                             </a>
-                                           
-                                            <a class="btn btn-danger btn-sm" href="#">
-                                                <i class="fas fa-ban">
-                                                </i>
-                                                Deactivate
-                                            </a>
+                                            @if (item.IsActive == true)
+                                            {
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-ban">
+                                                    </i>
+                                                    Deactivate
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-ban">
+                                                    </i>
+                                                    Activate
+                                                </a>
+                                            }
+
                                         </td>
                                     </tr>
                                 }

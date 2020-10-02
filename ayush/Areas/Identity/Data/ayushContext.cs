@@ -13,6 +13,7 @@ namespace ayush.Data
         public ayushContext(DbContextOptions<ayushContext> options) : base(options) { }
         public DbSet<AddAdmin> AddAdmin { get; set; }
         public DbSet<AddStudent> AddStudent { get; set; }
+        public DbSet<AddSchoolInfo> AddSchoolInfos { get; set; }
         public DbSet<AddSchool> AddSchool { get; set; }
         public DbSet<AddCounsellor> AddCounsellor { get; set; }
         public DbSet<UserInformation> UserInformation { get; set; }

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using ayush.Models;
 using ayush.Models.admin;
+using ayush.Data;
 
 namespace ayush.Pages.Admin
 {
@@ -26,24 +27,22 @@ namespace ayush.Pages.Admin
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<add_adminModel> _logger;
         private readonly IEmailSender _emailSender;
-        public add_schoolModel(
+        private readonly ayushContext _db;
+        public add_schoolModel(ayushContext db,
    UserManager<IdentityUser> userManager,
    SignInManager<IdentityUser> signInManager,
    ILogger<add_adminModel> logger,
    IEmailSender emailSender)
         {
+            _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
         }
         [BindProperty]
+        public AddSchoolInfo asi { get; set; }
         public InputModel Input { get; set; }
-
-        public string ReturnUrl { get; set; }
-
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
-
         public class InputModel
         {
             [Required]
@@ -66,9 +65,7 @@ namespace ayush.Pages.Admin
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
-            [Required]
-            [Display(Name = "Last Name")]
-            public string LastName { get; set; }
+
 
             [Display(Name = "Designation")]
             public string Designation { get; set; }
@@ -80,6 +77,11 @@ namespace ayush.Pages.Admin
             [Display(Name = "Phone Number")]
             public string PhoneNumber { get; set; }
         }
+
+        public string ReturnUrl { get; set; }
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -93,8 +95,9 @@ namespace ayush.Pages.Admin
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AddSchool { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Designation = Input.Designation, Address = Input.Address, PhoneNumber = Input.PhoneNumber };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+
+                var user = new AddSchool { UserName = asi.Email, Email = asi.Email, FirstName = asi.Name_POC, Designation = asi.Designation_POC, Address = asi.Address, PhoneNumber = asi.PhoneNumber };
+                var result = await _userManager.CreateAsync(user, asi.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -107,14 +110,37 @@ namespace ayush.Pages.Admin
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    await _emailSender.SendEmailAsync(asi.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+                    var users = new AddSchoolInfo
+                    {
+                        ID = asi.ID,
+                        SchoolID = user.Id,
+                        SchoolName = asi.SchoolName,
+                        Address = asi.Address,
+                        PhoneNumber = asi.PhoneNumber,
+                        Email = asi.Email,
+                        Name_POC = asi.Name_POC,
+                        PhoneNumber_POC = asi.PhoneNumber_POC,
+                        Email_POC = asi.Email_POC,
+                        Address_POC = asi.Address,
+                        HighQualification_POC = asi.HighQualification_POC,
+                        Designation_POC = asi.Designation_POC,
+                        UploadCertifications_POC = asi.UploadCertifications_POC,
+                        UploadCv_POC = asi.UploadCv_POC,
+                        RegisteredDate = DateTime.Now,
+                        Password = asi.Password,
+                        ConfirmPassword = asi.ConfirmPassword,
+                        IsActive = true
+                    };
+                    _db.AddSchoolInfos.Add(users);
+                    _db.SaveChanges();
 
                     var addToRoleResult = await _userManager.AddToRoleAsync(user, "School");
+
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = asi.Email, returnUrl = returnUrl });
                     }
                     else
                     {

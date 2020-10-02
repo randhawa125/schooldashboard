@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hp\\source\\repos\\schooldashboard\\ayush\\ayush.csproj": {}
+    "D:\\freeeeeeeeee\\ayush\\ayush.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hp\\source\\repos\\schooldashboard\\ayush\\ayush.csproj": {
+    "D:\\freeeeeeeeee\\ayush\\ayush.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hp\\source\\repos\\schooldashboard\\ayush\\ayush.csproj",
+        "projectUniqueName": "D:\\freeeeeeeeee\\ayush\\ayush.csproj",
         "projectName": "ayush",
-        "projectPath": "C:\\Users\\Hp\\source\\repos\\schooldashboard\\ayush\\ayush.csproj",
-        "packagesPath": "C:\\Users\\Hp\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hp\\source\\repos\\schooldashboard\\ayush\\obj\\",
+        "projectPath": "D:\\freeeeeeeeee\\ayush\\ayush.csproj",
+        "packagesPath": "C:\\Users\\Aakib\\.nuget\\packages\\",
+        "outputPath": "D:\\freeeeeeeeee\\ayush\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\Hp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Aakib\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -45,6 +45,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[5.3.2, )"
             },
             "Microsoft.AspNetCore.Authentication.Facebook": {
               "target": "Package",

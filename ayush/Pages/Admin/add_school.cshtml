@@ -25,12 +25,22 @@
                 <div class="card-body">
                     <div class="row">
 
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>School Name</label>
-                                <input asp-for="Input.FirstName" class="form-control" placeholder="School Name" />
+                                <input asp-for="asi.SchoolName" class="form-control" placeholder="School Name" />
 
-                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                <span asp-validation-for="asi.SchoolName" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Address"></label>
+                                <input asp-for="asi.Address" class="form-control" placeholder="address" />
+
+                                <span asp-validation-for="asi.Address" class="text-danger"></span>
 
                             </div>
                         </div>
@@ -38,139 +48,142 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="Input.Address"></label>
-                                <input asp-for="Input.Address" class="form-control" placeholder="Address" />
+                                <label asp-for="asi.PhoneNumber"></label>
+                                <input asp-for="asi.PhoneNumber" class="form-control" placeholder="phnoenumber" />
 
-                                <span asp-validation-for="Input.Address" class="text-danger"></span>
+                                <span asp-validation-for="asi.PhoneNumber" class="text-danger"></span>
 
                             </div>
 
                         </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Input.PhoneNumber"></label>
-                                        <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Phone Number" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Email"></label>
+                                <input asp-for="asi.Email" class="form-control" placeholder="email" />
 
-                                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                <span asp-validation-for="asi.Email" class="text-danger"></span>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Input.Email"></label>
-                                        <input asp-for="Input.Email" class="form-control" placeholder="Email" />
-
-                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="firstname">Name(POC)</label>
-                                        <input type="text" class="form-control" id="firstname" placeholder="School name" required="" name="Profile.Firstname" value="">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="Profile.Firstname" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="Profile_PhoneNumber">Phone Number(POC)</label>
-                                        <input type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}" id="Profile_PhoneNumber" name="Profile.PhoneNumber" value="8803631033">
-                                        <small id="phoneNumberHelp" class="form-text text-muted">Phone number must be 10 digits long.</small>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="Profile_Email">Email(POC)</label>
-                                        <input type="email" class="form-control" placeholder="Email" required="" id="Profile_Email" name="Profile.Email" value="school@gmail.com">
-
-                                    </div>
-                                </div>
-
-
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="Profile_Address">Address(POC)</label>
-                                        <input type="text" class="form-control" id="address" placeholder="Address" required="" name="Profile.Address" value="">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="firstname">Highest Qualification(POC)</label>
-                                        <input type="text" class="form-control" id="firstname" required="" name="Profile.Firstname" value="">
-                                        <span class="text-danger field-validation-valid" data-valmsg-for="Profile.Firstname" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="Profile_Lastname">Designation(POC)</label>
-                                        <input type="text" class="form-control" id="lastname" name="Profile.Lastname" value="">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="exampleInputFile">Upload Certifications(POC)</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="">Upload</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="font-weight-light" for="exampleInputFile">Upload CV(POC)</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="exampleInputFile">
-                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                                            </div>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text" id="">Upload</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Input.Password"></label>
-                                        <input asp-for="Input.Password" class="form-control" placeholder="Password" />
-
-                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label asp-for="Input.ConfirmPassword"></label>
-                                        <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" />
-
-                                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <!-- /.close here -->
                             </div>
-                            <!-- /.row -->
-                            <!-- /.row -->
                         </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer text-right">
-                            <button type="submit" class="btn btn-primary">Register</button>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Name_POC"></label>
+                                <input asp-for="asi.Name_POC" class="form-control" placeholder="name(poc)" />
+
+                                <span asp-validation-for="asi.Name_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.PhoneNumber_POC"></label>
+                                <input asp-for="asi.PhoneNumber_POC" class="form-control" placeholder="phonen(poc)" />
+
+                                <span asp-validation-for="asi.PhoneNumber_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Email_POC"></label>
+                                <input asp-for="asi.Email_POC" class="form-control" placeholder="Email" />
+
+                                <span asp-validation-for="asi.Email_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Address_POC"></label>
+                                <input asp-for="asi.Address_POC" class="form-control" placeholder="address(poc)" />
+
+                                <span asp-validation-for="asi.Address_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.HighQualification_POC"></label>
+                                <input asp-for="asi.HighQualification_POC" class="form-control" placeholder="HQ" />
+
+                                <span asp-validation-for="asi.HighQualification_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Designation_POC"></label>
+                                <input asp-for="asi.Designation_POC" class="form-control" placeholder="DE" />
+
+                                <span asp-validation-for="asi.Designation_POC" class="text-danger"></span>
+
+                            </div>
                         </div>
 
 
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="font-weight-light" for="exampleInputFile">Upload Certifications(POC)</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="font-weight-light" for="exampleInputFile">Upload CV(POC)</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.Password"></label>
+                                <input asp-for="asi.Password" class="form-control" placeholder="Email" />
+
+                                <span asp-validation-for="asi.Password" class="text-danger"></span>
+
+                            </div>
+
+                            <!-- /.close here -->
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="asi.ConfirmPassword"></label>
+                                <input asp-for="asi.ConfirmPassword" class="form-control" placeholder="Email" />
+
+                                <span asp-validation-for="asi.ConfirmPassword" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                        <!-- /.row -->
+                        <!-- /.row -->
                     </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+
+
+                </div>
+            </div>
         </form>
     </div>
 </section>
