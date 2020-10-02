@@ -112,10 +112,9 @@
                                 <div class="active tab-pane" id="activity">
 
                                     <div class="row">
-                                        <input type="hidden" asp-for=""
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model. " for="firstname">School name<span class="text-red">*</span></label>
+                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">School name<span class="text-red">*</span></label>
                                                 <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" placeholder="School name" required>
                                                 <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
                                             </div>

@@ -1,4 +1,5 @@
-﻿@page
+﻿
+@page
 @model ayush.Pages.Admin.schoolsModel
 @{
     Layout = "~/Pages/Shared/_AdminLayout.cshtml";
@@ -20,11 +21,9 @@
                         </a>
                     </li>
                     <li>
-                        <form method="post" asp-page-handler="ExportExcel">
-                            <a class="btn btn-app" asp-page="index">
-                                <i class="fas fa-file"></i> Export to Excel
-                            </a>
-                        </form>
+                        <a class="btn btn-app" asp-page="add_admin">
+                            <i class="fas fa-file"></i> Export to Excel
+                        </a>
                     </li>
 
                 </ol>
@@ -48,11 +47,37 @@
                                         School ID
                                     </th>
                                     <th>
-                                        Name
+                                        School Name
                                     </th>
 
                                     <th>
                                         Address
+                                    </th>
+                                    <th>
+                                        Phone Number
+                                    </th>
+                                    <th>
+                                        Email
+                                    </th>
+                                    <th>
+                                        Name(POC)
+                                    </th>
+
+                                    <th>
+                                        Phone Number(POC)
+                                    </th>
+                                    <th>
+                                        Email(POC)
+                                    </th>
+                                    <th>
+                                        Address(POC)
+                                    </th>
+                                    <th>
+                                        Qualifications
+                                    </th>
+
+                                    <th>
+                                        Designation
                                     </th>
                                     <th>
                                         Reg. Date
@@ -69,42 +94,56 @@
                                             @Html.DisplayFor(modelItem => item.SchoolID)
                                         </td>
                                         <td>
-                                            <a>
-                                                @Html.DisplayFor(modelItem => item.Name_POC) 
-                                            </a>
-                                            <br />
-                                           
+                                            @Html.DisplayFor(modelItem => item.SchoolName)
                                         </td>
-
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Address)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.RegisteredDate,new { @type="date"})
+                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary btn-sm" asp-route-id="item.ID" asp-page="SchoolProfile">
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name_POC)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhoneNumber_POC)
+                                        </td>
+                                        <td>
+                                            <a>
+                                                @Html.DisplayFor(modelItem => item.Email_POC)
+                                            </a>
+                                            <br />
+
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Address_POC)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.HighQualification_POC)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Designation_POC)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.RegisteredDate, new { @type = "date" })
+                                        </td>
+
+                                        <td>
+                                            <a class="btn btn-primary btn-sm" href="SchoolProfile">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 View
                                             </a>
-                                            @if (item.IsActive == true)
-                                            {
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-ban">
-                                                    </i>
-                                                    Deactivate
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-ban">
-                                                    </i>
-                                                    Activate
-                                                </a>
-                                            }
 
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-ban">
+                                                </i>
+                                                Deactivate
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -124,7 +163,7 @@
 
 
 
-   
+
 
 
 </section>
