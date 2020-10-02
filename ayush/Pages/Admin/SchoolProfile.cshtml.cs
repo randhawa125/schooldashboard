@@ -21,6 +21,8 @@ namespace ayush.Pages.School
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IMapper _mapper;
         public UserInformation UserInformation { get; set; }
+
+        public AddSchoolInfo AddSchoolInfo { get; set; }
         public IdentityUser LoggedInUser { get; set; }
         private ayushContext _context { get; set; }
         public EditUserProfile Profile { get; set; }
@@ -37,14 +39,14 @@ namespace ayush.Pages.School
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string ID)
         {
-            await SetPageValues();
+            await SetPageValues(ID);
 
             return Page();
         }
 
-        private async Task SetPageValues()
+        private async Task SetPageValues(string ID=null)
         {
             LoggedInUser = await _userManager.GetUserAsync(User);
 
@@ -53,6 +55,7 @@ namespace ayush.Pages.School
             if (UserInformation == null)
             { UserInformation = new UserInformation() { DateOfBirth = null }; }
 
+            AddSchoolInfo = _context.AddSchoolInfos.Where(a => a.SchoolID == ID).FirstOrDefault();
             Profile = _mapper.Map<EditUserProfile>(UserInformation);
 
             if (Profile != null) { Profile.PhoneNumber = LoggedInUser.PhoneNumber; }

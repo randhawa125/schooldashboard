@@ -114,24 +114,24 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">School name<span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" placeholder="School name" required>
-                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.SchoolName" for="firstname">School name<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.AddSchoolInfo.SchoolName" id="firstname" placeholder="School name" required>
+                                                <span asp-validation-for="@Model.AddSchoolInfo.SchoolName" class="text-danger"></span>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.PhoneNumber">Phone Number<span class="text-red">*</span></label>
-                                                <input asp-for="@Model.Profile.PhoneNumber" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.PhoneNumber">Phone Number<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.AddSchoolInfo.PhoneNumber" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
                                                 <small id="phoneNumberHelp" class="form-text text-muted">Phone number must be 10 digits long.</small>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Email">Email<span class="text-red">*</span></label>
-                                                <input type="email" asp-for="@Model.Profile.Email" class="form-control" placeholder="Email" required>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Email">Email<span class="text-red">*</span></label>
+                                                <input type="email" asp-for="@Model.AddSchoolInfo.Email" class="form-control" placeholder="Email" required>
 
                                             </div>
                                         </div>
@@ -140,8 +140,8 @@
                                        
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Address">Address<span class="text-red">*</span></label>
-                                                <input asp-for="@Model.Profile.Address" type="text" class="form-control" id="address" placeholder="Address" required>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Address">Address<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.AddSchoolInfo.Address" type="text" class="form-control" id="address" placeholder="Address" required>
                                             </div>
                                         </div>
 
@@ -153,24 +153,24 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">Name<span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" placeholder="School name" required>
-                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Name_POC" for="firstname">Name<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.AddSchoolInfo.Name_POC" id="firstname" placeholder="School name" required>
+                                                <span asp-validation-for="@Model.AddSchoolInfo.Name_POC" class="text-danger"></span>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.PhoneNumber">Phone Number<span class="text-red">*</span></label>
-                                                <input asp-for="@Model.Profile.PhoneNumber" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.PhoneNumber_POC">Phone Number<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.AddSchoolInfo.PhoneNumber_POC" type="text" class="form-control" placeholder="Phone number" onkeypress="preventFromEnteringAlphabets(event)" maxlength="10" minlength="10" pattern="\d{10}">
                                                 <small id="phoneNumberHelp" class="form-text text-muted">Phone number must be 10 digits long.</small>
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Email">Email<span class="text-red">*</span></label>
-                                                <input type="email" asp-for="@Model.Profile.Email" class="form-control" placeholder="Email" required>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Email_POC">Email<span class="text-red">*</span></label>
+                                                <input type="email" asp-for="@Model.AddSchoolInfo.Email_POC" class="form-control" placeholder="Email" required>
 
                                             </div>
                                         </div>
@@ -179,21 +179,21 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Address">Address<span class="text-red">*</span></label>
-                                                <input asp-for="@Model.Profile.Address" type="text" class="form-control" id="address" placeholder="Address" required>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Address_POC">Address<span class="text-red">*</span></label>
+                                                <input asp-for="@Model.AddSchoolInfo.Address_POC" type="text" class="form-control" id="address" placeholder="Address" required>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Firstname" for="firstname">Highest Qualification<span class="text-red">*</span></label>
-                                                <input type="text" class="form-control" asp-for="@Model.Profile.Firstname" id="firstname" required>
-                                                <span asp-validation-for="@Model.Profile.Firstname" class="text-danger"></span>
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.HighQualification_POC" for="firstname">Highest Qualification<span class="text-red">*</span></label>
+                                                <input type="text" class="form-control" asp-for="@Model.AddSchoolInfo.HighQualification_POC" id="firstname" required>
+                                                <span asp-validation-for="@Model.AddSchoolInfo.HighQualification_POC" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="font-weight-light" asp-for="@Model.Profile.Lastname">Designation</label>
-                                                <input asp-for="@Model.Profile.Lastname" type="text" class="form-control" id="lastname">
+                                                <label class="font-weight-light" asp-for="@Model.AddSchoolInfo.Designation_POC">Designation</label>
+                                                <input asp-for="@Model.AddSchoolInfo.Designation_POC" type="text" class="form-control" id="lastname">
                                             </div>
                                         </div>
                                         
