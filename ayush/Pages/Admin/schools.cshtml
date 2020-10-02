@@ -40,7 +40,7 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-bordered table-striped" method="post">
                             <thead>
                                 <tr>
                                     <th>
@@ -138,12 +138,23 @@
                                                 </i>
                                                 View
                                             </a>
+                                            @if (item.IsActive)
+                                            {
+                                                <a asp-page="Schools" asp-page-handler="Deactivate" asp-route-id="@item.SchoolID" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-ban">
+                                                    </i>
+                                                    Deactivate
+                                                </a>
+                                            }
+                                            @if (!item.IsActive)
+                                            {
+                                                <a asp-page="Schools" asp-page-handler="Activate" asp-route-id="@item.SchoolID" class="btn btn-success btn-sm">
+                                                    <i class="fas fa-arrow-alt-circle-up">
+                                                    </i>
+                                                    Activate
+                                                </a>
+                                            }
 
-                                            <a class="btn btn-danger btn-sm" href="#">
-                                                <i class="fas fa-ban">
-                                                </i>
-                                                Deactivate
-                                            </a>
                                         </td>
                                     </tr>
                                 }

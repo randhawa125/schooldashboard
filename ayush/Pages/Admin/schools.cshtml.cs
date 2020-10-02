@@ -28,6 +28,28 @@ namespace ayush.Pages.Admin
 
             SchoolList = data;
         }
+        public void OnGetDeactivate(string ID)
+        {
+            OnGet();
+            var data = _Context.AddSchoolInfos.Where(a => a.SchoolID == ID).FirstOrDefault();
+            if (data != null)
+            {
+                data.IsActive = false;
+                _Context.AddSchoolInfos.Update(data);
+                _Context.SaveChanges();
+            }
+        }
+        public void OnGetActivate(string ID)
+        {
+            OnGet();
+            var data = _Context.AddSchoolInfos.Where(a => a.SchoolID == ID).FirstOrDefault();
+            if (data != null)
+            {
+                data.IsActive = true;
+                _Context.AddSchoolInfos.Update(data);
+                _Context.SaveChanges();
+            }
+        }
         public async Task<IActionResult> OnPostExportExcelAsync()
         {
 
