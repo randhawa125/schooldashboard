@@ -2690,10 +2690,10 @@ D:\UpdateFreelance\ayush\obj\Debug\netcoreapp3.1\ayush.dll
 D:\UpdateFreelance\ayush\obj\Debug\netcoreapp3.1\ayush.pdb
 D:\UpdateFreelance\ayush\obj\Debug\netcoreapp3.1\ayush.genruntimeconfig.cache
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.json
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\Properties\serviceDependencies.local.json
-C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\ayush.StaticWebAssets.xml
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\ayush.exe
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\ayush.deps.json
@@ -3094,7 +3094,6 @@ C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\runtim
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
-C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.csprojAssemblyReference.cache
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.AssemblyInfoInputs.cache
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.AssemblyInfo.cs
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.csproj.CoreCompileInputs.cache
@@ -3228,3 +3227,4 @@ C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\static
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.dll
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.pdb
 C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.genruntimeconfig.cache
+C:\Users\Aakib\OneDrive\Desktop\chch\jsjsjs\ayush\obj\Debug\netcoreapp3.1\ayush.csprojAssemblyReference.cache

@@ -29,6 +29,8 @@
 
   <ItemGroup>
     <Folder Include="Models\Student\" />
+    <Folder Include="wwwroot\Upload\" />
+    <Folder Include="wwwroot\SchoolFiles\WorkShop_Images\" />
     <Folder Include="wwwroot\SchoolFiles\Session_Images\" />
     <Folder Include="wwwroot\SchoolFiles\POC_Certificates\" />
     <Folder Include="wwwroot\SchoolFiles\POC_CV%27s\" />

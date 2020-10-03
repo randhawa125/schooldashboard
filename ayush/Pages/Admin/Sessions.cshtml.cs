@@ -64,7 +64,7 @@ namespace ayush.Pages.Admin
             if (Upload_Images != null)
             {
                 SessionImng SessionsImg = new SessionImng();
-                var schooldata = _db.Sessions.Where(s => s.Id == ID).FirstOrDefault();
+                var schooldata = _db.adminsessions.Where(s => s.ID == ID).FirstOrDefault();
                 if (Upload_Images != null && Upload_Images.Count != 0)
                 {
                     string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/Session_Images");
@@ -78,25 +78,9 @@ namespace ayush.Pages.Admin
                         }
                         //SessionsImg.ImgID = 0;
 
-                        SessionsImg.ImgID = schooldata.Id;
+                        SessionsImg.ImgID = 0;
                         SessionsImg.Images = formfile.FileName;
-                        _db.sessionImngs.Add(SessionsImg);
-                        _db.SaveChanges();
-                    }
-                }
-                if (Upload_Images != null && Upload_Images.Count != 0)
-                {
-                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/POC_CV's");
-                    foreach (IFormFile formfile in Upload_Images)
-                    {
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + formfile.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            formfile.CopyTo(fileStream);
-                        }
-                        SessionsImg.ImgID = schooldata.Id;
-                        SessionsImg.Images = formfile.FileName;
+                        SessionsImg.ID = ID;
                         _db.sessionImngs.Add(SessionsImg);
                         _db.SaveChanges();
                     }

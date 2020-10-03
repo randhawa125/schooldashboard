@@ -44,6 +44,44 @@ namespace ayush.Pages.Admin
 
             SchoolCouponsList = data;
         }
+        //public async Task<IActionResult> OnPostDelete(int ID)
+        //{
+
+        //    var data = _db.SchoolCoupons.Where(a => a.ID == ID).FirstOrDefault();
+        //    if (data != null)
+        //    {
+
+        //        _db.SchoolCoupons.Remove(data);
+        //        _db.SaveChanges();
+        //    }
+        //    return RedirectToPage("SchoolCoupons");
+        //}
+        //public void OnGetDelete1(int ID)
+        //{
+        //    OnGet();
+        //    var data = _db.SchoolCoupons.Where(a => a.ID == ID).FirstOrDefault();
+        //    if (data != null)
+        //    {
+
+        //        _db.SchoolCoupons.Remove(data);
+        //        _db.SaveChanges();
+        //    }
+
+        public ActionResult OnGetDelete(int? id)
+        {
+            if (id != null)
+            {
+                var data = (from schoolcouponslist in _db.SchoolCoupons
+                            where schoolcouponslist.ID == id
+                            select schoolcouponslist).SingleOrDefault();
+
+                _db.Remove(data);
+                _db.SaveChanges();
+            }
+            return RedirectToPage("SchoolCoupons");
+        }
+
+
         public async Task<IActionResult> OnPostAsync()
         {
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

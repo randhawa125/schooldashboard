@@ -21,9 +21,10 @@
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-app" asp-page="add_admin">
-                            <i class="fas fa-file"></i> Export to Excel
-                        </a>
+                        <form method="post" asp-page-handler="ExportExcel">
+                            <button class="btn btn-app fas fa-file">Export To Excel</button>
+                        </form>
+                      
                     </li>
 
                 </ol>

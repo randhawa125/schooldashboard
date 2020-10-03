@@ -10,7 +10,7 @@ using OfficeOpenXml;
 using ayush.Data;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
-
+using OfficeOpenXml;
 namespace ayush.Pages.Admin
 {
     public class schoolsModel : PageModel
@@ -28,6 +28,7 @@ namespace ayush.Pages.Admin
 
             SchoolList = data;
         }
+        public IList<AddSchoolInfo> addSchoolInfos { get; set; }
         public void OnGetDeactivate(string ID)
         {
             OnGet();
@@ -53,18 +54,19 @@ namespace ayush.Pages.Admin
         public async Task<IActionResult> OnPostExportExcelAsync()
         {
 
-            var MyList = await _Context.AddSchoolInfos.ToListAsync();
+            var myBUs = await _Context.AddSchoolInfos.ToListAsync();
+            // above code loads the data using LINQ with EF (query of table), you can substitute this with any data source.
             var stream = new MemoryStream();
 
             using (var package = new ExcelPackage(stream))
             {
                 var workSheet = package.Workbook.Worksheets.Add("Sheet1");
-                workSheet.Cells.LoadFromCollection(MyList, true);
+                workSheet.Cells.LoadFromCollection(myBUs, true);
                 package.Save();
             }
             stream.Position = 0;
 
-            string excelName = $"SchoolData-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
+            string excelName = $"BusinessUnits-{DateTime.Now.ToString("yyyyMMddHHmmssfff")}.xlsx";
             // above I define the name of the file using the current datetime.
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName); // this will be the actual export.

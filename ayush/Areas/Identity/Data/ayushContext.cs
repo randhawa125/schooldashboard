@@ -18,6 +18,8 @@ namespace ayush.Data
         public DbSet<AddSchoolCoupons> SchoolCoupons { get; set; }
         public DbSet<Sessions> adminsessions { get; set; }
         public DbSet<SessionImng> sessionImngs { get; set; }
+        public DbSet<WorkShops> workShops { get; set; }
+        public DbSet<WorkShopsImng> workShopsImngs { get; set; }
         public DbSet<AddSchool> AddSchool { get; set; }
         public DbSet<AddCounsellor> AddCounsellor { get; set; }
         public DbSet<UserInformation> UserInformation { get; set; }

@@ -64,10 +64,11 @@
                                                 </td>
 
                                                 <td>
-                                                    <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
-                                                       
-                                                        Delete
-                                                    </a>
+                                                    <a  class="fa fa-trash text-danger" asp-page="./SchoolCoupons" onclick="return confirm('Are you sure you want to delete this item?');" asp-page-handler="Delete" asp-route-id="@item.ID">Delete</a>
+                                                    @*<a class="fa fa-trash text-danger" asp-page-handler="Delete1" onclick="return confirm('Are you sure you want to delete?')" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
+
+            Delete
+        </a>*@
                                                 </td>
                                             </tr>
                                         }
@@ -123,10 +124,8 @@
                                                     </td>
 
                                                     <td>
-                                                        <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
+                                                        <a class="fa fa-trash text-danger" asp-page="./SchoolCoupons" onclick="return confirm('Are you sure you want to delete this item?');" asp-page-handler="Delete" asp-route-id="@item.ID">Delete</a>
 
-                                                            Delete
-                                                        </a>
                                                     </td>
                                                 </tr>
                                             }
@@ -183,10 +182,8 @@
                                                     </td>
 
                                                     <td>
-                                                        <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
+                                                        <a class="fa fa-trash text-danger" asp-page="./SchoolCoupons" onclick="return confirm('Are you sure you want to delete this item?');" asp-page-handler="Delete" asp-route-id="@item.ID">Delete</a>
 
-                                                            Delete
-                                                        </a>
                                                     </td>
                                                 </tr>
                                             }
