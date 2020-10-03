@@ -183,16 +183,16 @@
                                     <div class="card card-primary">
 
 
-                                        <form role="form">
+                                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <label for="exampleInputEmail1">Title</label>
-                                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Title">
+                                                    <label asp-for="Sessions.Tittle">Title</label>
+                                                    <input asp-for="Sessions.Tittle" type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Title">
                                                 </div>
-                                               
+
                                                 <div class="form-group">
-                                                    <label for="exampleInputPassword1">Description</label>
-                                                    <textarea class="textarea" placeholder="Place some text here"
+                                                    <label asp-for="Sessions.Description">Description</label>
+                                                    <textarea asp-for="Sessions.Description" class="textarea" placeholder="Place some text here"
                                                               style="width: 100%; height: 400px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
                                 Description</textarea>
                                                 </div>
@@ -200,6 +200,20 @@
                                                     <label for="exampleInputFile">Images</label>
                                                     <div class="form-group">
                                                         <div id="multipleupload">Upload multiple image files</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-light" asp-for="Upload_Images" for="exampleInputFile">Upload Images</label>
+                                                        <div class="input-group">
+                                                            <div class="custom-file">
+                                                                <input type="file" asp-for="Upload_Images" class="custom-file-input" id="ImgUpload" multiple="multiple">
+                                                                <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                                            </div>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text" id="">Upload</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 

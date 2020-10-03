@@ -2058,6 +2058,48 @@ namespace ayush.Migrations
                     b.ToTable("SchoolCoupons");
                 });
 
+            modelBuilder.Entity("ayush.Models.admin.SessionImng", b =>
+                {
+                    b.Property<int>("ImgID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImgID");
+
+                    b.HasIndex("ID");
+
+                    b.ToTable("sessionImngs");
+                });
+
+            modelBuilder.Entity("ayush.Models.admin.Sessions", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tittle")
+                        .HasColumnType("varchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("adminsessions");
+                });
+
             modelBuilder.Entity("ayush.Models.AddAdmin", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -2351,6 +2393,15 @@ namespace ayush.Migrations
                     b.HasOne("ayush.Models.BaseUser", "IdentityUser")
                         .WithMany("Siblings")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ayush.Models.admin.SessionImng", b =>
+                {
+                    b.HasOne("ayush.Models.admin.Sessions", "Sessions")
+                        .WithMany()
+                        .HasForeignKey("ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

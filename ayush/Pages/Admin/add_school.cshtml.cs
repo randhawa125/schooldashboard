@@ -122,6 +122,7 @@ namespace ayush.Pages.Admin
                         {
                             formfile.CopyTo(fileStream);
                         }
+                        schoolCertificate.SchoolID = 0;
                         schoolCertificate.ID = schooldata.ID;
                         schoolCertificate.UploadCertifications_POC = formfile.FileName;
                         _db.schoolCertificates.Add(schoolCertificate);
@@ -206,6 +207,8 @@ namespace ayush.Pages.Admin
                     }
                     else
                     {
+
+                       
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }

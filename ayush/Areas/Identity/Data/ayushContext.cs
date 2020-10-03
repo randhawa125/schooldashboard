@@ -16,6 +16,8 @@ namespace ayush.Data
         public DbSet<AddSchoolInfo> AddSchoolInfos { get; set; }
         public DbSet<SchoolCertificate> schoolCertificates { get; set; }
         public DbSet<AddSchoolCoupons> SchoolCoupons { get; set; }
+        public DbSet<Sessions> adminsessions { get; set; }
+        public DbSet<SessionImng> sessionImngs { get; set; }
         public DbSet<AddSchool> AddSchool { get; set; }
         public DbSet<AddCounsellor> AddCounsellor { get; set; }
         public DbSet<UserInformation> UserInformation { get; set; }
