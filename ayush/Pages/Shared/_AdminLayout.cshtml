@@ -432,7 +432,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="~/lib/jquery.blockUI.js"></script>
     <script src="~/js/moment.min.js"></script>
     <script src="~/js/adminlte.min.js"></script>
-
+    @RenderSection("Scripts", required: false)
     @RenderSection("JavaScript", required: false)
 </body>
 </html>

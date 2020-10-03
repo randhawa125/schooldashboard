@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\mmmmm\\ayush\\ayush.csproj": {}
+    "D:\\UpdateFreelance\\ayush\\ayush.csproj": {}
   },
   "projects": {
-    "D:\\mmmmm\\ayush\\ayush.csproj": {
+    "D:\\UpdateFreelance\\ayush\\ayush.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\mmmmm\\ayush\\ayush.csproj",
+        "projectUniqueName": "D:\\UpdateFreelance\\ayush\\ayush.csproj",
         "projectName": "ayush",
-        "projectPath": "D:\\mmmmm\\ayush\\ayush.csproj",
-        "packagesPath": "C:\\Users\\Aakib\\.nuget\\packages\\",
-        "outputPath": "D:\\mmmmm\\ayush\\obj\\",
+        "projectPath": "D:\\UpdateFreelance\\ayush\\ayush.csproj",
+        "packagesPath": "C:\\Users\\amar\\.nuget\\packages\\",
+        "outputPath": "D:\\UpdateFreelance\\ayush\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Aakib\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\amar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

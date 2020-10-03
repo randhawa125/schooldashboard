@@ -2,6 +2,7 @@
 @model ayush.Pages.Admin.add_schoolModel
 @{
     Layout = "~/Pages/Shared/_AdminLayout.cshtml";
+
 }
 <section class="content-header">
     <div class="container-fluid">
@@ -17,7 +18,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
             <!-- SELECT2 EXAMPLE -->
             <div class="card card-default">
 
@@ -121,18 +122,32 @@
 
                             </div>
                         </div>
-
-
-
-                        <input type="file" id="file1"
-                               name="file1"
-                               multiple="multiple" />
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="font-weight-light" for="exampleInputFile">Upload CV(POC)</label>
+                                <label class="font-weight-light" asp-for="UploadCenrtificate_poc" for="exampleInputFile">Upload Certificate(POC)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="exampleInputFile">
+                                        <input type="file" asp-for="UploadCenrtificate_poc" class="custom-file-input" id="exampleInputFile" multiple>
+                                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                                    </div>
+                                    @*<div class="input-group-append">
+                                        <span class="input-group-text" id="">Upload</span>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @*<input type="file" id="file1"
+                            name="file1"
+                            multiple="multiple" />*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="font-weight-light" asp-for="Upload_CV_poc_files" for="exampleInputFile">Upload CV(POC)</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" asp-for="Upload_CV_poc_files" class="custom-file-input" id="CVupload" multiple="multiple">
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     <div class="input-group-append">
@@ -173,6 +188,24 @@
 
                 </div>
             </div>
+            @section Scripts{
+                <script>
+                    $(document).ready(function () {
+                        $('.custom-file-input').on('change', function () {
+                            //var filelabel = $(this).next('.custom-file-label');
+                            //var files = $(this)[0].files;
+                            //if (files.length > 1) {
+                            //    filelabel = html(files.length + ' files selected');
+                            //}
+                            //else if (files.length == 1) {
+                            //    filelabel = html(files[0].name);
+                            //}
+                            var filename = $(this).val().split("\\").pop();
+                            $(this).next('.custom-file-label').html(filename);
+                        })
+                    })
+                </script>
+            }
         </form>
     </div>
 </section>

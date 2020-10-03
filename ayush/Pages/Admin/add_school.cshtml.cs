@@ -20,6 +20,7 @@ using ayush.Data;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using ayush.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace ayush.Pages.Admin
 {
@@ -51,6 +52,13 @@ namespace ayush.Pages.Admin
         [BindProperty]
         public AddSchoolInfoViewModel asi { get; set; }
         public InputModel Input { get; set; }
+        [BindProperty]
+        public List<IFormFile> UploadCenrtificate_poc { get; set; }
+
+        [BindProperty]
+        public List<IFormFile> Upload_CV_poc_files { get; set; }
+
+        public List<SchoolCertificate> certificates { get; set; }
         public class InputModel
         {
             [Required]
@@ -96,25 +104,54 @@ namespace ayush.Pages.Admin
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-        //private string UploadedFile(AddSchoolInfoViewModel model)
-        //{
-        //    string uniqueFileName = null;
-
-        //    if (model.UploadCertifications_POC != null)
-        //    {
-        //        string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-        //        uniqueFileName = Guid.NewGuid().ToString() + "_" + model.UploadCertifications_POC.FileName;
-        //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
-        //        {
-        //            model.UploadCertifications_POC.CopyTo(fileStream);
-        //        }
-        //    }
-        //    return uniqueFileName;
-        //}
+        private string UploadedFile(int ID)
+        {
+            string uniqueFileName = null;
+            if (UploadCenrtificate_poc != null)
+            {
+                SchoolCertificate schoolCertificate= new SchoolCertificate();
+                var schooldata = _db.AddSchoolInfos.Where(s => s.ID == ID).FirstOrDefault();
+                if (UploadCenrtificate_poc != null && UploadCenrtificate_poc.Count != 0)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/POC_Certificates");
+                    foreach (IFormFile formfile in UploadCenrtificate_poc)
+                    {
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + formfile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            formfile.CopyTo(fileStream);
+                        }
+                        schoolCertificate.ID = schooldata.ID;
+                        schoolCertificate.UploadCertifications_POC = formfile.FileName;
+                        _db.schoolCertificates.Add(schoolCertificate);
+                        _db.SaveChanges();
+                    }
+                }
+                if (Upload_CV_poc_files != null && Upload_CV_poc_files.Count != 0)
+                {
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/POC_CV's");
+                    foreach (IFormFile formfile in Upload_CV_poc_files)
+                    {
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + formfile.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            formfile.CopyTo(fileStream);
+                        }
+                        schoolCertificate.ID = schooldata.ID;
+                        schoolCertificate.SchoolID = 0;
+                        schoolCertificate.UploadCv_POC = formfile.FileName;
+                        _db.schoolCertificates.Add(schoolCertificate);
+                        _db.SaveChanges();
+                    }
+                }
+            } 
+            return uniqueFileName;
+        }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            
+
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
@@ -159,6 +196,7 @@ namespace ayush.Pages.Admin
                     };
                     _db.AddSchoolInfos.Add(users);
                     _db.SaveChanges();
+                    UploadedFile(users.ID);
 
                     var addToRoleResult = await _userManager.AddToRoleAsync(user, "School");
 
