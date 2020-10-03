@@ -83,4 +83,24 @@ namespace ayush.Models
         [Column(TypeName = "bit")]
         public bool IsActive { get; set; }
     }
+    public class SchoolCertificate
+    {
+        [Key]
+        [Required]
+        [Column(TypeName = "int")]
+        [Display(Name = "Id")]
+        public int SchoolID { get; set; }
+        [Display(Name = "Upload Certification (POC)")]
+        [Column(TypeName = "nvarchar(max)")]
+        public string UploadCertifications_POC { get; set; }
+        [Display(Name = "Upload CV (POC)")]
+        [Column(TypeName = "nvarchar(max)")]
+        public string UploadCv_POC { get; set; }
+        public virtual int ID { get; set; }
+        [ForeignKey("ID")]
+        public virtual AddSchoolInfo AddSchoolInfo { get; set; }
+
+
+
+    }
 }
