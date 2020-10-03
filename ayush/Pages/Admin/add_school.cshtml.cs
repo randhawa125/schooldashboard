@@ -17,31 +17,39 @@ using Microsoft.Extensions.Logging;
 using ayush.Models;
 using ayush.Models.admin;
 using ayush.Data;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using ayush.Models.ViewModels;
 
 namespace ayush.Pages.Admin
 {
     [AllowAnonymous]
     public class add_schoolModel : PageModel
     {
+        private readonly IWebHostEnvironment webHostEnvironment;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<add_adminModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly ayushContext _db;
+
+        [Obsolete]
         public add_schoolModel(ayushContext db,
+            IHostingEnvironment hostingEnvironment,
    UserManager<IdentityUser> userManager,
    SignInManager<IdentityUser> signInManager,
    ILogger<add_adminModel> logger,
    IEmailSender emailSender)
         {
             _db = db;
+            webHostEnvironment = (IWebHostEnvironment)hostingEnvironment;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
         }
         [BindProperty]
-        public AddSchoolInfo asi { get; set; }
+        public AddSchoolInfoViewModel asi { get; set; }
         public InputModel Input { get; set; }
         public class InputModel
         {
@@ -88,14 +96,30 @@ namespace ayush.Pages.Admin
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
+        //private string UploadedFile(AddSchoolInfoViewModel model)
+        //{
+        //    string uniqueFileName = null;
 
+        //    if (model.UploadCertifications_POC != null)
+        //    {
+        //        string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+        //        uniqueFileName = Guid.NewGuid().ToString() + "_" + model.UploadCertifications_POC.FileName;
+        //        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //        using (var fileStream = new FileStream(filePath, FileMode.Create))
+        //        {
+        //            model.UploadCertifications_POC.CopyTo(fileStream);
+        //        }
+        //    }
+        //    return uniqueFileName;
+        //}
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-
+                //string UploadCertifications_POC = UploadedFile(asi);
                 var user = new AddSchool { UserName = asi.Email, Email = asi.Email, FirstName = asi.Name_POC, Designation = asi.Designation_POC, Address = asi.Address, PhoneNumber = asi.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, asi.Password);
                 if (result.Succeeded)
@@ -126,8 +150,8 @@ namespace ayush.Pages.Admin
                         Address_POC = asi.Address,
                         HighQualification_POC = asi.HighQualification_POC,
                         Designation_POC = asi.Designation_POC,
-                        UploadCertifications_POC = asi.UploadCertifications_POC,
-                        UploadCv_POC = asi.UploadCv_POC,
+                        UploadCertifications_POC = null,
+                        UploadCv_POC = null,
                         RegisteredDate = DateTime.Now,
                         Password = asi.Password,
                         ConfirmPassword = asi.ConfirmPassword,

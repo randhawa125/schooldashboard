@@ -36,41 +36,44 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>S.No.</th>
-                                            <th>Number of Coupons</th>
-                                            <th>Issue Date</th>
+                                            <th>
+                                                S.No
+                                            </th>
+                                            <th>
+                                                Number Of Coupons
+                                            </th>
 
-                                            <th>Delete Coupons</th>
+                                            <th>
+                                                Issue Date
+                                            </th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>15-09-2020</td>
+                                        @foreach (var item in Model.SchoolCouponsList)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.NumberOfCoupons)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.IssueDate, new { @type = "date" })
+                                                </td>
 
-                                            <td><i class="fa fa-trash text-danger"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2.</td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>15-09-2020</td>
+                                                <td>
+                                                    <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
+                                                       
+                                                        Delete
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
 
-                                            <td><i class="fa fa-trash text-danger"></i></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3.</td>
-                                            <td>
-                                                100
-                                            </td>
-                                            <td>15-09-2020</td>
 
-                                            <td><i class="fa fa-trash text-danger"></i></td>
-                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -99,51 +102,36 @@
                                             <th>S.No.</th>
                                             <th>Coupon Number</th>
                                             <th>Issue Date</th>
+                                            <th></th>
 
-                                         
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
+                                        @foreach (var item in Model.SchoolCouponsList)
+                                        {
+                                            @if (item.IsActive == false)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NumberOfCoupons)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.IssueDate, new { @type = "date" })
+                                                    </td>
 
+                                                    <td>
+                                                        <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
 
-                                        </tr>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
 
-
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
-
-
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
-
-
-                                        </tr>
 
 
                                     </tbody>
@@ -174,51 +162,36 @@
                                             <th>S.No.</th>
                                             <th>Coupon Number</th>
                                             <th>Issue Date</th>
-
+                                            <th></th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
+                                        @foreach (var item in Model.SchoolCouponsList)
+                                        {
+                                            @if (item.IsActive == true)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.NumberOfCoupons)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.IssueDate, new { @type = "date" })
+                                                    </td>
 
+                                                    <td>
+                                                        <a class="fa fa-trash text-danger" asp-page="SchoolCoupons" asp-route-ID="@item.SchoolID">
 
-                                        </tr>
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
 
-
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
-
-
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>1.</td>
-                                            <td>
-                                                AB-10000424242
-                                            </td>
-                                            <td>15-09-2020</td>
-
-
-                                        </tr>
 
 
                                     </tbody>
@@ -239,15 +212,25 @@
                             <h3 class="card-title">Add Coupons</h3>
                         </div>
 
-                        <form role="form">
+                        <form role="form" method="post">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">School ID</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="School ID" readonly>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>School Id</label>
+                                        <input asp-for="asc.SchoolID" class="form-control" placeholder="School Id" />
+
+                                        <span asp-validation-for="asc.SchoolID" class="text-danger"></span>
+
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Enter Number of Coupons</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Number of Coupons">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Number Of Coupons</label>
+                                        <input asp-for="asc.NumberOfCoupons" class="form-control" placeholder="Number Of Coupons" />
+
+                                        <span asp-validation-for="asc.NumberOfCoupons" class="text-danger"></span>
+
+                                    </div>
                                 </div>
 
 
