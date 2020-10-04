@@ -30,18 +30,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>School Name</label>
-                                <input asp-for="asi.SchoolName" class="form-control" placeholder="School Name" />
+                                <input asp-for="Input.FirstName" class="form-control" placeholder="School Name" />
 
-                                <span asp-validation-for="asi.SchoolName" class="text-danger"></span>
+                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.Address"></label>
-                                <input asp-for="asi.Address" class="form-control" placeholder="address" />
+                                <label asp-for="Input.Address"></label>
+                                <input asp-for="Input.Address" class="form-control" placeholder="address" />
 
-                                <span asp-validation-for="asi.Address" class="text-danger"></span>
+                                <span asp-validation-for="Input.Address" class="text-danger"></span>
 
                             </div>
                         </div>
@@ -49,10 +49,10 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.PhoneNumber"></label>
-                                <input asp-for="asi.PhoneNumber" class="form-control" placeholder="phnoenumber" />
+                                <label asp-for="Input.PhoneNumber"></label>
+                                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="phnoenumber" />
 
-                                <span asp-validation-for="asi.PhoneNumber" class="text-danger"></span>
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
 
                             </div>
 
@@ -60,14 +60,22 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.Email"></label>
-                                <input asp-for="asi.Email" class="form-control" placeholder="email" />
+                                <label asp-for="Input.Email"></label>
+                                <input asp-for="Input.Email" class="form-control" placeholder="email" />
 
-                                <span asp-validation-for="asi.Email" class="text-danger"></span>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
 
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Input.Designation"></label>
+                                <input asp-for="Input.Designation" class="form-control" placeholder="DE" />
 
+                                <span asp-validation-for="Input.Designation" class="text-danger"></span>
+
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label asp-for="asi.Name_POC"></label>
@@ -106,15 +114,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.HighQualification_POC"></label>
-                                <input asp-for="asi.HighQualification_POC" class="form-control" placeholder="HQ" />
-
-                                <span asp-validation-for="asi.HighQualification_POC" class="text-danger"></span>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
                                 <label asp-for="asi.Designation_POC"></label>
                                 <input asp-for="asi.Designation_POC" class="form-control" placeholder="DE" />
 
@@ -124,6 +123,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label asp-for="asi.HighQualification_POC"></label>
+                                <input asp-for="asi.HighQualification_POC" class="form-control" placeholder="HQ" />
+
+                                <span asp-validation-for="asi.HighQualification_POC" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="font-weight-light" asp-for="UploadCenrtificate_poc" for="exampleInputFile">Upload Certificate(POC)</label>
                                 <div class="input-group">
                                     <div class="custom-file">
@@ -131,8 +140,8 @@
                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                     </div>
                                     @*<div class="input-group-append">
-                                        <span class="input-group-text" id="">Upload</span>
-                                    </div>*@
+                        <span class="input-group-text" id="">Upload</span>
+                    </div>*@
                                 </div>
                             </div>
                         </div>
@@ -140,8 +149,8 @@
 
 
                         @*<input type="file" id="file1"
-                            name="file1"
-                            multiple="multiple" />*@
+        name="file1"
+        multiple="multiple" />*@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="font-weight-light" asp-for="Upload_CV_poc_files" for="exampleInputFile">Upload CV(POC)</label>
@@ -159,10 +168,10 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.Password"></label>
-                                <input asp-for="asi.Password" class="form-control" placeholder="Email" />
+                                <label asp-for="Input.Password"></label>
+                                <input asp-for="Input.Password" class="form-control" placeholder="Email" />
 
-                                <span asp-validation-for="asi.Password" class="text-danger"></span>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
 
                             </div>
 
@@ -170,10 +179,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label asp-for="asi.ConfirmPassword"></label>
-                                <input asp-for="asi.ConfirmPassword" class="form-control" placeholder="Email" />
+                                <label asp-for="Input.ConfirmPassword"></label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Email" />
 
-                                <span asp-validation-for="asi.ConfirmPassword" class="text-danger"></span>
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 
                             </div>
                         </div>

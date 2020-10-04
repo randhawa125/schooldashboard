@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\ayush.csproj": {}
+    "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\ayush.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\ayush.csproj": {
+    "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\ayush.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\ayush.csproj",
+        "projectUniqueName": "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\ayush.csproj",
         "projectName": "ayush",
-        "projectPath": "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\ayush.csproj",
+        "projectPath": "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\ayush.csproj",
         "packagesPath": "C:\\Users\\Aakib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\obj\\",
+        "outputPath": "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9vsTQHQP7rOMpfxKYJQj1V1/K5jwSqXWx3pq2rFulBSPCoPjIOmY3ITYMrW7MRMASaK7ZDneArVOQyCCCvRApg==",
+  "dgSpecHash": "4LcYmtP6rYLGTu/Kc/TuoGQDZ0/ghT0wjyLQY+Yd1FhDxXYfSdXnHia1zHuAL47KCdGwYyqhQc9lYbGYIVx66w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aakib\\Source\\Repos\\schooldashboard4\\ayush\\ayush.csproj",
+  "projectFilePath": "C:\\Users\\Aakib\\source\\repos\\schooldashboard4\\ayush\\ayush.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aakib\\.nuget\\packages\\automapper\\10.0.0\\automapper.10.0.0.nupkg.sha512",
     "C:\\Users\\Aakib\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.0.1\\automapper.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
