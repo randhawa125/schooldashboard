@@ -75,7 +75,7 @@ namespace ayush.Pages.Admin
                 var schooldata = _db.adminsessions.Where(s => s.ID == ID).FirstOrDefault();
                 if (Upload_Images != null && Upload_Images.Count != 0)
                 {
-                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/Session_Images");
+                    string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "SchoolFiles/WorkShop_Images");
                     foreach (IFormFile formfile in Upload_Images)
                     {
                         uniqueFileName = Guid.NewGuid().ToString() + "_" + formfile.FileName;
@@ -87,13 +87,14 @@ namespace ayush.Pages.Admin
                         //SessionsImg.ImgID = 0;
 
                         workShops.ImgID = 0;
-                        workShops.Images = formfile.FileName;
+                        workShops.Images = uniqueFileName;
                         workShops.ID = ID;
                         _db.workShopsImngs.Add(workShops);
                         _db.SaveChanges();
                     }
                 }
             }
+            OnGet();
             return uniqueFileName;
         }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -112,7 +113,7 @@ namespace ayush.Pages.Admin
                 _db.workShops.Add(users);
                 _db.SaveChanges();
                 UploadedFile(users.ID);
-
+                OnGet();
 
             }
 

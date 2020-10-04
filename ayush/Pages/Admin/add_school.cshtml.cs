@@ -124,7 +124,7 @@ namespace ayush.Pages.Admin
                         }
                         schoolCertificate.SchoolID = 0;
                         schoolCertificate.ID = schooldata.ID;
-                        schoolCertificate.UploadCertifications_POC = formfile.FileName;
+                        schoolCertificate.UploadCertifications_POC = uniqueFileName;
                         _db.schoolCertificates.Add(schoolCertificate);
                         _db.SaveChanges();
                     }
@@ -142,7 +142,7 @@ namespace ayush.Pages.Admin
                         }
                         schoolCertificate.ID = schooldata.ID;
                         schoolCertificate.SchoolID = 0;
-                        schoolCertificate.UploadCv_POC = formfile.FileName;
+                        schoolCertificate.UploadCv_POC = uniqueFileName;
                         _db.schoolCertificates.Add(schoolCertificate);
                         _db.SaveChanges();
                     }
