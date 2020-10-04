@@ -47,17 +47,26 @@ namespace ayush.Pages.Admin
 
         public List<SessionImng> Imngs { get; set; }
 
+        public List<Sessions> SchoolList { get; set; }
+        public List<SessionImng> SchoolList1 { get; set; }
+
+        public void OnGet(string returnUrl = null)
+        {
+            var data1 = (from schoollist1 in _db.sessionImngs
+                         select schoollist1).ToList();
+            var data = (from schoollist in _db.adminsessions
+                        select schoollist).ToList();
+
+            SchoolList = data;
+            SchoolList1 = data1;
+        }
 
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
-        {
-            ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        }
+       
         private string UploadedFile(int ID)
         {
             string uniqueFileName = null;
@@ -79,14 +88,28 @@ namespace ayush.Pages.Admin
                         //SessionsImg.ImgID = 0;
 
                         SessionsImg.ImgID = 0;
-                        SessionsImg.Images = formfile.FileName;
+                        SessionsImg.Images = uniqueFileName;
                         SessionsImg.ID = ID;
                         _db.sessionImngs.Add(SessionsImg);
                         _db.SaveChanges();
                     }
                 }
             }
+            OnGet();
             return uniqueFileName;
+        }
+        public ActionResult OnGetDelete(int? id)
+        {
+            if (id != null)
+            {
+                var data = (from Sessionslist in _db.adminsessions
+                            where Sessionslist.ID == id
+                            select Sessionslist).SingleOrDefault();
+
+                _db.Remove(data);
+                _db.SaveChanges();
+            }
+            return RedirectToPage("Sessions");
         }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
@@ -104,11 +127,12 @@ namespace ayush.Pages.Admin
                     _db.adminsessions.Add(users);
                     _db.SaveChanges();
                     UploadedFile(users.ID);
-               
+                    OnGet();
 
             }
 
             // If we got this far, something failed, redisplay form
+            OnGet();
             return Page();
         }
     }

@@ -82,7 +82,7 @@ namespace ayush.Pages.Admin
         }
 
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             for (int count = 0; count <= asc.NumberOfCoupons; count++)
@@ -115,6 +115,7 @@ namespace ayush.Pages.Admin
 
                     _db.SchoolCoupons.Add(users);
                     _db.SaveChanges();
+                    OnGet();
 
 
 
@@ -122,7 +123,7 @@ namespace ayush.Pages.Admin
 
                 }
             }
-
+            OnGet();
             // If we got this far, something failed, redisplay form
             return Page();
         }

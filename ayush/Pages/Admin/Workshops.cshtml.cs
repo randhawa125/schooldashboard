@@ -66,6 +66,7 @@ namespace ayush.Pages.Admin
             SchoolList = data;
             SchoolList1 = data1; 
         }
+
         private string UploadedFile(int ID)
         {
             string uniqueFileName = null;
@@ -97,6 +98,19 @@ namespace ayush.Pages.Admin
             OnGet();
             return uniqueFileName;
         }
+        public ActionResult OnGetDelete(int? id)
+        {
+            if (id != null)
+            {
+                var data = (from workshopslist in _db.workShops
+                            where workshopslist.ID == id
+                            select workshopslist).SingleOrDefault();
+
+                _db.Remove(data);
+                _db.SaveChanges();
+            }
+            return RedirectToPage("Workshops");
+        }
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             if (ModelState.IsValid)
@@ -118,6 +132,7 @@ namespace ayush.Pages.Admin
             }
 
             // If we got this far, something failed, redisplay form
+            OnGet();
             return Page();
         }
     }
