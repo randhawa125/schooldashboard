@@ -20,10 +20,7 @@ namespace ayush.Pages.School
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IMapper _mapper;
-
         public UserInformation UserInformation { get; set; }
-
-        public AddSchoolInfo AddSchoolInfo { get; set; }
         public IdentityUser LoggedInUser { get; set; }
         private ayushContext _context { get; set; }
         public EditUserProfile Profile { get; set; }
@@ -40,14 +37,14 @@ namespace ayush.Pages.School
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> OnGetAsync(string ID)
+        public async Task<IActionResult> OnGetAsync()
         {
-            await SetPageValues(ID);
+            await SetPageValues();
 
             return Page();
         }
 
-        private async Task SetPageValues(string ID=null)
+        private async Task SetPageValues()
         {
             LoggedInUser = await _userManager.GetUserAsync(User);
 
@@ -56,7 +53,6 @@ namespace ayush.Pages.School
             if (UserInformation == null)
             { UserInformation = new UserInformation() { DateOfBirth = null }; }
 
-            AddSchoolInfo = _context.AddSchoolInfos.Where(a => a.SchoolID == ID).FirstOrDefault();
             Profile = _mapper.Map<EditUserProfile>(UserInformation);
 
             if (Profile != null) { Profile.PhoneNumber = LoggedInUser.PhoneNumber; }
@@ -131,37 +127,17 @@ namespace ayush.Pages.School
             return RedirectToPage();
         }
 
-        public async Task<IActionResult> OnPost(AddSchoolInfo AddSchoolInfo)
+        public async Task<IActionResult> OnPost(EditUserProfile profile)
         {
-            var profile = new EditUserProfile();
             LoggedInUser = await _userManager.GetUserAsync(User);
             UserInformation = await _context.UserInformation.FirstOrDefaultAsync(x => x.UserId.Equals(LoggedInUser.Id));
-            //Upadte School and POC's Data
-            AddSchoolInfo edit = _context.AddSchoolInfos.Where(a => a.SchoolID == AddSchoolInfo.SchoolID).FirstOrDefault();
-            if (edit != null) {
-                edit.SchoolName = AddSchoolInfo.SchoolName;
-                edit.Address = AddSchoolInfo.Address;
-                edit.PhoneNumber = AddSchoolInfo.PhoneNumber;
-                edit.Email = AddSchoolInfo.Email;
-                edit.Name_POC = AddSchoolInfo.Name_POC;
-                edit.PhoneNumber_POC = AddSchoolInfo.PhoneNumber_POC;
-                edit.Email_POC = AddSchoolInfo.Email_POC;
-                edit.Address_POC = AddSchoolInfo.Address;
-                edit.HighQualification_POC = AddSchoolInfo.HighQualification_POC;
-                edit.Designation_POC = AddSchoolInfo.Designation_POC;
-                edit.UploadCertifications_POC = AddSchoolInfo.UploadCertifications_POC;
-                edit.UploadCv_POC = AddSchoolInfo.UploadCv_POC;
-                _context.AddSchoolInfos.Update(edit);
-                _context.SaveChanges();
-            };
+
             if (!ModelState.IsValid)
             {
                 Profile = profile;
                 await SetPageValues();
                 return Page();
             }
-
-           
 
             //Update user mobile number
             LoggedInUser.PhoneNumber = profile.PhoneNumber;

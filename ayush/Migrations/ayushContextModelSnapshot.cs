@@ -225,80 +225,6 @@ namespace ayush.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ayush.Models.AddSchoolInfo", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Address_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("ConfirmPassword")
-                        .HasColumnType("varchar(15)");
-
-                    b.Property<string>("Designation_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Email_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("HighQualification_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("varchar(15)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("PhoneNumber_POC")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<DateTime>("RegisteredDate")
-                        .HasColumnType("Date");
-
-                    b.Property<string>("SchoolID")
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("SchoolName")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("UploadCertifications_POC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UploadCv_POC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AddSchoolInfos");
-                });
-
             modelBuilder.Entity("ayush.Models.AttemptedOption", b =>
                 {
                     b.Property<int>("Id")
@@ -976,29 +902,6 @@ namespace ayush.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RewardsRegister");
-                });
-
-            modelBuilder.Entity("ayush.Models.SchoolCertificate", b =>
-                {
-                    b.Property<int>("SchoolID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UploadCertifications_POC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UploadCv_POC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SchoolID");
-
-                    b.HasIndex("ID");
-
-                    b.ToTable("schoolCertificates");
                 });
 
             modelBuilder.Entity("ayush.Models.Session", b =>
@@ -2031,117 +1934,6 @@ namespace ayush.Migrations
                     b.ToTable("UserSibling");
                 });
 
-            modelBuilder.Entity("ayush.Models.WorkShops", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Images")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tittle")
-                        .HasColumnType("varchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("workShops");
-                });
-
-            modelBuilder.Entity("ayush.Models.WorkShopsImng", b =>
-                {
-                    b.Property<int>("ImgID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Images")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ImgID");
-
-                    b.HasIndex("ID");
-
-                    b.ToTable("workShopsImngs");
-                });
-
-            modelBuilder.Entity("ayush.Models.admin.AddSchoolCoupons", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CouponNumber")
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("Date");
-
-                    b.Property<int>("NumberOfCoupons")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SchoolID")
-                        .HasColumnType("varchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("SchoolCoupons");
-                });
-
-            modelBuilder.Entity("ayush.Models.admin.SessionImng", b =>
-                {
-                    b.Property<int>("ImgID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Images")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ImgID");
-
-                    b.HasIndex("ID");
-
-                    b.ToTable("sessionImngs");
-                });
-
-            modelBuilder.Entity("ayush.Models.admin.Sessions", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Images")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tittle")
-                        .HasColumnType("varchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("adminsessions");
-                });
-
             modelBuilder.Entity("ayush.Models.AddAdmin", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -2352,15 +2144,6 @@ namespace ayush.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ayush.Models.SchoolCertificate", b =>
-                {
-                    b.HasOne("ayush.Models.AddSchoolInfo", "AddSchoolInfo")
-                        .WithMany()
-                        .HasForeignKey("ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ayush.Models.Session", b =>
                 {
                     b.HasOne("ayush.Models.BaseUser", null)
@@ -2435,24 +2218,6 @@ namespace ayush.Migrations
                     b.HasOne("ayush.Models.BaseUser", "IdentityUser")
                         .WithMany("Siblings")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ayush.Models.WorkShopsImng", b =>
-                {
-                    b.HasOne("ayush.Models.WorkShops", "WorkShops")
-                        .WithMany()
-                        .HasForeignKey("ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ayush.Models.admin.SessionImng", b =>
-                {
-                    b.HasOne("ayush.Models.admin.Sessions", "Sessions")
-                        .WithMany()
-                        .HasForeignKey("ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

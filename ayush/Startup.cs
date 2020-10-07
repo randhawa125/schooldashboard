@@ -4,8 +4,6 @@ using ayush.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +24,6 @@ namespace ayush
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddTransient(typeof(ISmsService), typeof(SmsService));
-            services.AddDbContext<ayushContext>(options => options.UseSqlServer("ayushContextConnection"));
 
             services.Configure<IdentityOptions>(options =>
             {

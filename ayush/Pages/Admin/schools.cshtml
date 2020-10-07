@@ -1,5 +1,4 @@
-﻿
-@page
+﻿@page
 @model ayush.Pages.Admin.schoolsModel
 @{
     Layout = "~/Pages/Shared/_AdminLayout.cshtml";
@@ -21,10 +20,9 @@
                         </a>
                     </li>
                     <li>
-                        <form method="post" asp-page-handler="ExportExcel">
-                            <button class="btn btn-app fas fa-file">Export To Excel</button>
-                        </form>
-                      
+                        <a class="btn btn-app" asp-page="add_admin">
+                            <i class="fas fa-file"></i> Export to Excel
+                        </a>
                     </li>
 
                 </ol>
@@ -41,44 +39,18 @@
                 <div class="card">
 
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped" method="post">
+                        <table id="example1" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>
                                         School ID
                                     </th>
                                     <th>
-                                        School Name
+                                        Name
                                     </th>
 
                                     <th>
                                         Address
-                                    </th>
-                                    <th>
-                                        Phone Number
-                                    </th>
-                                    <th>
-                                        Email
-                                    </th>
-                                    <th>
-                                        Name(POC)
-                                    </th>
-
-                                    <th>
-                                        Phone Number(POC)
-                                    </th>
-                                    <th>
-                                        Email(POC)
-                                    </th>
-                                    <th>
-                                        Address(POC)
-                                    </th>
-                                    <th>
-                                        Qualifications
-                                    </th>
-
-                                    <th>
-                                        Designation
                                     </th>
                                     <th>
                                         Reg. Date
@@ -92,70 +64,34 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.SchoolID)
+                                            @Html.DisplayFor(modelItem => item.Id)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.SchoolName)
+                                            <a>
+                                                @Html.DisplayFor(modelItem => item.SchoolName) @Html.DisplayFor(modelItem => item.Name_POC)
+                                            </a>
+                                            <br />
+                                           
                                         </td>
+
                                         <td>
                                             @Html.DisplayFor(modelItem => item.Address)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                            16-09-2020
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Email)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Name_POC)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.PhoneNumber_POC)
-                                        </td>
-                                        <td>
-                                            <a>
-                                                @Html.DisplayFor(modelItem => item.Email_POC)
-                                            </a>
-                                            <br />
-
-                                        </td>
-
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Address_POC)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.HighQualification_POC)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Designation_POC)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.RegisteredDate, new { @type = "date" })
-                                        </td>
-
-                                        <td>
-                                            <a class="btn btn-primary btn-sm" asp-page="SchoolProfile" asp-route-ID="@item.SchoolID">
+                                            <a class="btn btn-primary btn-sm" href="SchoolProfile">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 View
                                             </a>
-                                            @if (item.IsActive)
-                                            {
-                                                <a asp-page="Schools" asp-page-handler="Deactivate" asp-route-id="@item.SchoolID" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-ban">
-                                                    </i>
-                                                    Deactivate
-                                                </a>
-                                            }
-                                            @if (!item.IsActive)
-                                            {
-                                                <a asp-page="Schools" asp-page-handler="Activate" asp-route-id="@item.SchoolID" class="btn btn-success btn-sm">
-                                                    <i class="fas fa-arrow-alt-circle-up">
-                                                    </i>
-                                                    Activate
-                                                </a>
-                                            }
-
+                                           
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-ban">
+                                                </i>
+                                                Deactivate
+                                            </a>
                                         </td>
                                     </tr>
                                 }
@@ -175,7 +111,7 @@
 
 
 
-
+   
 
 
 </section>

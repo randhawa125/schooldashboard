@@ -13,13 +13,6 @@ namespace ayush.Data
         public ayushContext(DbContextOptions<ayushContext> options) : base(options) { }
         public DbSet<AddAdmin> AddAdmin { get; set; }
         public DbSet<AddStudent> AddStudent { get; set; }
-        public DbSet<AddSchoolInfo> AddSchoolInfos { get; set; }
-        public DbSet<SchoolCertificate> schoolCertificates { get; set; }
-        public DbSet<AddSchoolCoupons> SchoolCoupons { get; set; }
-        public DbSet<Sessions> adminsessions { get; set; }
-        public DbSet<SessionImng> sessionImngs { get; set; }
-        public DbSet<WorkShops> workShops { get; set; }
-        public DbSet<WorkShopsImng> workShopsImngs { get; set; }
         public DbSet<AddSchool> AddSchool { get; set; }
         public DbSet<AddCounsellor> AddCounsellor { get; set; }
         public DbSet<UserInformation> UserInformation { get; set; }
@@ -67,6 +60,53 @@ namespace ayush.Data
             {
                 entity.Property(x => x.CareerListType).HasDefaultValue(ListType.ListA);
             });
+            //modelBuilder.Entity<TrnRetrospectionPoints>(entity =>
+            //{
+            //    entity.HasKey(e => e.RetrospectionPointId);
+
+            //    entity.ToTable("TRN_RetrospectionPoints", "ADM");
+
+            //    entity.Property(e => e.CreatedBy)
+            //        .IsRequired()
+            //        .HasMaxLength(50);
+
+            //    entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+            //    entity.Property(e => e.Description).HasMaxLength(250);
+
+            //    entity.Property(e => e.ModifiedBy).HasMaxLength(50);
+
+            //    entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+            //
+            //});
+
+            //modelbuilder.Entity<AddSchool>(entity =>
+            //{
+            //    entity.HasKey(e => e.SchoolID);
+            //    entity.ToTable("AddSchool");
+            //    entity.Property(e => e.SchoolName).HasMaxLength(250);
+
+            //    entity.Property(e => e.PhoneNumber).HasMaxLength(50);
+
+            //    entity.Property(e => e.Email).HasColumnType("datetime");
+            //    entity.Property(e => e.Name_POC).HasMaxLength(250);
+
+            //    entity.Property(e => e.PhoneNumber_POC).HasMaxLength(50);
+
+            //    entity.Property(e => e.Email_POC).HasColumnType("datetime");
+            //    entity.Property(e => e.Address_POC).HasMaxLength(250);
+
+            //    entity.Property(e => e.HighQualification_POC).HasMaxLength(50);
+
+            //    entity.Property(e => e.Designation_POC).HasColumnType("datetime");
+            //    entity.Property(e => e.UploadCertifications_POC).HasMaxLength(250);
+
+            //    entity.Property(e => e.UploadCv_POC).HasMaxLength(50);
+
+            //    entity.Property(e => e.Password).HasColumnType("datetime");
+
+            //});
             
             base.OnModelCreating(builder);
         }
